@@ -7,17 +7,34 @@ public class Player : MonoBehaviour
     private new Collider collider;
     private PlayerController controller;
 
+    [SerializeField] private float maxHealth;
+    private float health;
+    [SerializeField] private float constantHealRegen;
+    [SerializeField] private float healthDrain;
+
+    [Space(10)]
+    [Header("Spear related")]
     [SerializeField] private Transform firePos;
     [SerializeField] private Spear spear;
     private Rigidbody spearRigidbody;
     [SerializeField] private float spearLaunchForce;
     [SerializeField] private float dashToSpearDuration = 0.2f;
 
+    [Space(10)]
+    [Header("Gun related")]
+    [SerializeField] private GameObject gun;
+    [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float gunFireRate;
+    private float nextTimeToFire;
+
     private Camera cam;
 
     // Start is called before the first frame update
     void Start()
     {
+        health = maxHealth;
+
         controller = GetComponent<PlayerController>();
         spear.gameObject.SetActive(false);
 
@@ -32,15 +49,59 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
+        if (spearLinkedToTheBoss)
         {
-            LaunchSpear(cam.transform.forward);
+            if (Input.GetMouseButton(0))
+            {
+                // Guns
+                if(Time.time >= nextTimeToFire)
+                {
+                    nextTimeToFire = Time.time + 1 / gunFireRate;
+                    // Shoot
+                    Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                    bullet.movement = cam.transform.forward * bulletSpeed;
+                }
+            }
         }
-        else if(Input.GetMouseButtonDown(1) && spear.gameObject.activeSelf)
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                // Launch Spear
+                LaunchSpear(cam.transform.forward);
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
         {
             // Dash to spear
             DashToSpear();
         }
+
+        #region Health gestion
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            health -= maxHealth / 5;
+        }
+
+        if (spear.linkedToBoss && spear.gameObject.activeSelf)
+        {
+            health -= Time.deltaTime * healthDrain;
+        }
+
+        if (health < maxHealth)
+        {
+            health += constantHealRegen * Time.deltaTime;
+            if (health > maxHealth) health = maxHealth;
+        }
+
+        if (health <= 0)
+        {
+            // Die(
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        }
+        #endregion
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -48,6 +109,17 @@ public class Player : MonoBehaviour
         }
 
         Debug.DrawRay(cam.transform.position, cam.transform.forward * 3, Color.red);
+    }
+
+    private void OnGUI()
+    {
+        GUIStyle style = new GUIStyle
+        {
+            fontSize = 40
+        };
+        style.normal.textColor = Color.white;
+
+        GUILayout.Label($"Health: {health}", style);
     }
 
     private void LaunchSpear(Vector3 direction)
@@ -60,6 +132,6 @@ public class Player : MonoBehaviour
 
     private void DashToSpear()
     {
-        StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => spear.gameObject.SetActive(false)));
+        StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => spear.DisableSpear()));
     }
 }
