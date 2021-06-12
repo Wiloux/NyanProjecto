@@ -13,6 +13,7 @@ public class GameHandler : MonoBehaviour
     }
 
     public static bool isPaused = false;
+    public static bool enableControls = true;
 
     public static void SetPause(bool pause)
     {

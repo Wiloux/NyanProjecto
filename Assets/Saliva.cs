@@ -50,7 +50,7 @@ public class Saliva : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().DealDamage(damage);
+            other.GetComponent<Player>().DealDamage(damage, true);
         }
     }
 
