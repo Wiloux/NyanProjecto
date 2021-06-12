@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float maxHealth;
     private float health;
+    private bool dead;
     [SerializeField] private float constantHealRegen;
     [SerializeField] private float healthDrain;
 
@@ -33,7 +34,7 @@ public class Player : MonoBehaviour
 
     [Space(10)]
     [SerializeField] private float camZoomTransitionDuration = 0.5f;
-    Coroutine camZoomingCoroutine;
+    IEnumerator camZoomingCoroutine;
 
     private Camera cam;
 
@@ -59,30 +60,8 @@ public class Player : MonoBehaviour
         if (!GameHandler.isPaused && GameHandler.enableControls)
         {
             bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
-            if (spearLinkedToTheBoss)
-            {
-                if (Input.GetMouseButton(0))
-                {
-                    // Guns
-                    if (Time.time >= nextTimeToFire)
-                    {
-                        nextTimeToFire = Time.time + 1 / gunFireRate;
-                        // Shoot
-                        Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-                        bullet.movement = cam.transform.forward * bulletSpeed;
-                    }
-                }
-            }
-            else
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    // Launch Spear
-                    LaunchSpear(cam.transform.forward);
-                }
-            }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && spear.gameObject.activeSelf)
             {
                 // Dash to spear
                 DashToSpear();
@@ -91,19 +70,56 @@ public class Player : MonoBehaviour
             else if (Input.GetMouseButtonDown(1))
             {
                 // Start Zoom
+                if(camZoomingCoroutine != null) StopCoroutine(camZoomingCoroutine);
+                camZoomingCoroutine = ZoomCam();
+                StartCoroutine(camZoomingCoroutine);
+
+                // Set zooming
                 animator.SetBool("Aim", true);
+            }
+            else if (Input.GetMouseButton(1))
+            {
+                // Launc Spear / Shoot with gun
+                if (spearLinkedToTheBoss)
+                {
+                    if (Input.GetMouseButton(0))
+                    {
+                        // Guns
+                        if (Time.time >= nextTimeToFire)
+                        {
+                            nextTimeToFire = Time.time + 1 / gunFireRate;
+                            // Shoot
+                            Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                            bullet.movement = cam.transform.forward * bulletSpeed;
+                        }
+                    }
+                }
+                else
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        // Launch Spear
+                        LaunchSpear(cam.transform.forward);
+                    }
+                }
+
+                // Animator
                 animator.SetBool("Spear", !spearLinkedToTheBoss);
-
-                //camZoomingCoroutine = ZoomCam();
-                //StartCoroutine(camZoomingCoroutine);
-
-
+                // Make the player look in the direction of the cam
+                if (controller.camPivot.transform.forward != transform.forward)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, controller.camPivot.transform.rotation, controller.rotationSpeed);
+                }
             }
             else if (Input.GetMouseButtonUp(1))
             {
                 // End Zoom
-                animator.SetBool("Aim", false);
+                if(camZoomingCoroutine != null) StopCoroutine(camZoomingCoroutine);
+                camZoomingCoroutine = UnZoomCam();
+                StartCoroutine(camZoomingCoroutine);
 
+                // Set not aiming
+                animator.SetBool("Aim", false);
             }
 
             #region Health gestion
@@ -123,7 +139,7 @@ public class Player : MonoBehaviour
                 if (health > maxHealth) health = maxHealth;
             }
 
-            if (health <= 0)
+            if (health <= 0 && !dead)
             {
                 Die();
             }
@@ -164,6 +180,7 @@ public class Player : MonoBehaviour
 
     public void DealDamage(float amount, bool hurtAnimation = true)
     {
+        if (health <= 0) return;
         if (hurtAnimation) animator.SetTrigger("Hurt");
         health -= amount;
         if (health <= 0) Die();
@@ -171,15 +188,20 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        animator.SetTrigger("Dead");
-        //GameHandler.SetPause(true);
-        GameHandler.enableControls = false;
-        GameHandler.instance.WaitForInput(2f, () =>
+        if (!dead)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-            GameHandler.enableControls = true;
-            //GameHandler.SetPause(false);
-        });
+            dead = true;
+            controller.rb.velocity = new Vector3(0, controller.rb.velocity.y, 0);
+            animator.SetTrigger("Dead");
+            //GameHandler.SetPause(true);
+            GameHandler.enableControls = false;
+            GameHandler.instance.WaitForInput(2f, () =>
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+                GameHandler.enableControls = true;
+                //GameHandler.SetPause(false);
+            });
+        }
     }
 
     private IEnumerator ZoomCam()
@@ -187,10 +209,6 @@ public class Player : MonoBehaviour
         float timer = 0;
         while(timer < camZoomTransitionDuration)
         {
-            if (controller.camPivot.transform.forward != transform.forward)
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, controller.camPivot.transform.rotation, controller.rotationSpeed);
-            }
             if (cam.transform.localPosition != controller.camPivot.camZoomPosition.localPosition)
             {
                 cam.transform.position = Vector3.Lerp(controller.camPivot.camPosition.position, controller.camPivot.camZoomPosition.position, timer / camZoomTransitionDuration);

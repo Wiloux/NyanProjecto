@@ -2050,6 +2050,10 @@ PrefabInstance:
       propertyPath: gunFireRate
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: camZoomTransitionDuration
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 915882033761489363, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: m_Name
       value: Player
