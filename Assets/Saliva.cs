@@ -35,6 +35,7 @@ public class Saliva : MonoBehaviour
         {
             GameObject spawnedPoison = Instantiate(poison, spawnedMarker.transform.position, spawnedMarker.transform.rotation);
             AcidPond acidscript = spawnedPoison.GetComponent<AcidPond>();
+            acidscript.bossScript = bossScript;
             if (bossScript.currentState == Boss.bossStates.Stage3)
             {
                 acidscript.timerMax = -1;

@@ -420,6 +420,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+--- !u!114 &438974208 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5244191929250909419, guid: 5fbd30164be345f4b925c14baa0c6fac, type: 3}
+  m_PrefabInstance: {fileID: 5244191928302066259}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 632e88e6b163bc245b0b2d18be095a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &479590634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,6 +2039,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1805344591}
     - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 915882032500134906}
+    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: bulletSpeed
       value: 50
       objectReference: {fileID: 0}
@@ -2047,6 +2062,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 915882033761489366, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 915882032500134906}
+    - target: {fileID: 915882033761489366, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: camPivot
+      value: 
+      objectReference: {fileID: 438974208}
     - target: {fileID: 915882033761489366, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: camRotator
       value: 
@@ -2121,6 +2144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+--- !u!95 &915882032500134906 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1216184737790528281, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+  m_PrefabInstance: {fileID: 915882032500134905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3980216697230600144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2245,17 +2273,5 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1305559598}
-    - target: {fileID: 5244191929826502110, guid: 5fbd30164be345f4b925c14baa0c6fac, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5244191929826502110, guid: 5fbd30164be345f4b925c14baa0c6fac, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5244191929826502110, guid: 5fbd30164be345f4b925c14baa0c6fac, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5.03
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fbd30164be345f4b925c14baa0c6fac, type: 3}

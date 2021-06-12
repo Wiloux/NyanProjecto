@@ -5,6 +5,7 @@ using UnityEngine;
 public class AcidPond : MonoBehaviour
 {
     // Start is called before the first frame update
+    public Boss bossScript;
     public float timer;
     public float timerMax;
 
@@ -27,6 +28,7 @@ public class AcidPond : MonoBehaviour
             }
             else
             {
+                bossScript.acidPonds.Remove(this);
                 Destroy(gameObject);
             }
         }

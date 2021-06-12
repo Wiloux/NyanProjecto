@@ -35,19 +35,45 @@ public class Boss : MonoBehaviour
     public float laserSpd;
     public LayerMask _layermask;
 
+    [Header("AttackTimers")]
+    public float waitForAttackTimerDurMin;
+    public float waitForAttackTimerDurMax;
+    public float waitForAttackTimerDur;
+    public float waitForAttackTimer;
 
+    public Coroutine SalivaAttackCoro;
+    public Coroutine LaserAttackCoro;
     void Start()
     {
         currentState = bossStates.Stage1;
         currentHealth = maxHealth;
         laserGameObject.SetActive(false);
+
+
+        waitForAttackTimerDur = Random.Range(waitForAttackTimerDurMin, waitForAttackTimerDurMax);
+        waitForAttackTimer = waitForAttackTimerDur;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (currentState == bossStates.Dead)
-            HeadsLookAtPlayer();
+        {
+        }
+        else
+        {
+            if (waitForAttackTimer >= 0)
+            {
+                waitForAttackTimer -= Time.deltaTime;
+            }
+            else if ((waitForAttackTimer <= 0 && SalivaAttackCoro == null) || (waitForAttackTimer <= 0 && LaserAttackCoro == null))
+            {
+                ChooseAttack(currentState);
+
+                waitForAttackTimerDur = Random.Range(waitForAttackTimerDurMin, waitForAttackTimerDurMax);
+                waitForAttackTimer = waitForAttackTimerDur;
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -68,6 +94,85 @@ public class Boss : MonoBehaviour
         }
     }
 
+
+    private void ChooseAttack(bossStates stage)
+    {
+        switch (stage)
+        {
+            case bossStates.Stage1:
+                if (SalivaAttackCoro == null)
+                {
+                    SalivaAttackCoro = StartCoroutine(SalivaRain());
+                }
+                else
+                {
+                    Debug.Log("Boss already salivating!");
+                }
+                break;
+            case bossStates.Stage2:
+                int i = Random.Range(0, 2);
+                if (i == 0)
+                {
+                    if (SalivaAttackCoro == null)
+                    {
+                        SalivaAttackCoro = StartCoroutine(SalivaRain());
+                    }
+                    else if (LaserAttackCoro == null)
+                    {
+                        Debug.Log("Boss already salivating!");
+                        LaserAttackCoro = StartCoroutine(LaserAttack());
+                    }
+                }
+                else if (i != 0)
+                {
+                    if (LaserAttackCoro == null)
+                    {
+                        LaserAttackCoro = StartCoroutine(LaserAttack());
+                    }
+                    else if (SalivaAttackCoro == null)
+                    {
+                        SalivaAttackCoro = StartCoroutine(SalivaRain());
+                        Debug.Log("Boss already lasering!");
+                    }
+                }
+                break;
+            case bossStates.Stage3:
+                int j = Random.Range(0, 2);
+                if (j == 0)
+                {
+                    if (SalivaAttackCoro == null)
+                    {
+                        SalivaAttackCoro = StartCoroutine(SalivaRain());
+                    }
+                    else if (LaserAttackCoro == null)
+                    {
+                        Debug.Log("Boss already salivating!");
+                        LaserAttackCoro = StartCoroutine(LaserAttack());
+                    }
+                    else
+                    {
+                        Debug.Log("BossAlreadyDoingBoth");
+                    }
+                }
+                else if (j != 0)
+                {
+                    if (LaserAttackCoro == null)
+                    {
+                        LaserAttackCoro = StartCoroutine(LaserAttack());
+                    }
+                    else if (SalivaAttackCoro == null)
+                    {
+                        SalivaAttackCoro = StartCoroutine(SalivaRain());
+                        Debug.Log("Boss already lasering!");
+                    }
+                    else
+                    {
+                        Debug.Log("BossAlreadyDoingBoth");
+                    }
+                }
+                break;
+        }
+    }
     IEnumerator SalivaRain()
     {
         float amountOfDrops = 0;
@@ -80,6 +185,7 @@ public class Boss : MonoBehaviour
             spawnedSaliva.GetComponent<Saliva>().bossScript = this;
             yield return new WaitForSeconds(waitAmountBtwDrops);
         }
+        SalivaAttackCoro = null;
         // currentState = bossStates.Idle;
     }
 
@@ -116,6 +222,7 @@ public class Boss : MonoBehaviour
             }
             yield return new WaitForEndOfFrame();
         }
+        LaserAttackCoro = null;
         laserGameObject.SetActive(false);
 
     }
