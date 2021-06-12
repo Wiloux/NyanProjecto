@@ -10,6 +10,8 @@ public class Spear : MonoBehaviour
     bool stopping;
     Quaternion finalRot;
 
+    [HideInInspector] public bool linkedToBoss = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -31,15 +33,20 @@ public class Spear : MonoBehaviour
     {
         if (!stopping)
         {
+            if (collision.transform.name.Contains("Boss")) // temp
+            {
+                linkedToBoss = true;
+            }
+
             //Debug.Log($"Touched {collision.transform.name}");
             collider.enabled = false;
             stopping = true;
             finalRot = transform.rotation;
-            Invoke(nameof(Stop), timeWithoutCollider);
+            Invoke(nameof(StopMovement), timeWithoutCollider);
         }
     }
 
-    private void Stop()
+    private void StopMovement()
     {
         rb.velocity = Vector3.zero;
         rb.useGravity = false;
@@ -48,14 +55,27 @@ public class Spear : MonoBehaviour
 
     public void ResetForLaunch()
     {
-        stopping = false;
+        ResetBase();
         collider.enabled = false;
         rb.useGravity = true;
-        Invoke(nameof(EnableCollider), timeWithoutCollider);
+        rb.velocity = Vector3.zero;
+        Invoke(nameof(EnableCollider), 0.05f);
     }
 
     private void EnableCollider()
     {
         collider.enabled = true;
+    }
+
+    public void DisableSpear()
+    {
+        ResetBase();
+        gameObject.SetActive(false);
+    }
+
+    private void ResetBase()
+    {
+        linkedToBoss = false;
+        stopping = false;
     }
 }

@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 915882033761489353}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,10 +211,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbfc2e87254c83341bc30b8abd8f9835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  constantHealRegen: 10
+  healthDrain: 20
   firePos: {fileID: 915882033921226487}
   spear: {fileID: 0}
-  spearLaunchForce: 1500
+  spearLaunchForce: 1400
   dashToSpearDuration: 0.1
+  gun: {fileID: 0}
+  bulletPrefab: {fileID: 5311716066549033173, guid: 83187f1889fc44240914c827c0836266, type: 3}
+  bulletSpeed: 0
+  gunFireRate: 0
 --- !u!114 &915882033761489366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +249,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915882033761489363}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 286d7a608f32f7c4987b946f40600009, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
