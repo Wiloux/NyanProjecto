@@ -2704,6 +2704,10 @@ PrefabInstance:
       propertyPath: spear
       value: 
       objectReference: {fileID: 1805344591}
+    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: tpInvulnerabilityDuration
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 915882033761489363, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: m_Name
       value: Player

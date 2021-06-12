@@ -105,15 +105,8 @@ public class Boss : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player") && currentState != bossStates.Dead)
         {
-            Transform parentTest = new GameObject("Test").transform;
-            ContactPoint[] contactPoints = new ContactPoint[1];
-            collision.GetContacts(contactPoints);
-            for(int i = 0; i < contactPoints.Length; i++)
-            {
-                GameObject temp = new GameObject($"{i}");
-                temp.transform.position = contactPoints[i].point;
-            }
-            Vector3 staggerDirection = collision.collider.bounds.center - transform.position;
+            Vector3 staggerDirection = -collision.GetContact(0).normal;
+            Debug.DrawRay(collision.GetContact(0).point, -collision.GetContact(0).normal, Color.red, 5f) ;
             staggerDirection.y = 0;
             collision.transform.GetComponent<Player>().DealDamage(damageOnCollision, staggerDirection);
         }
