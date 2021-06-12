@@ -1254,6 +1254,8 @@ MonoBehaviour:
   staggerForce: 250
   staggerInvulnerabilityDuration: 2
   tpInvulnerabilityDuration: 0.5
+  healthImg: {fileID: 0}
+  bowTie: {fileID: 0}
 --- !u!114 &915882033761489366
 MonoBehaviour:
   m_ObjectHideFlags: 0

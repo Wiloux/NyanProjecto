@@ -1001,7 +1001,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Connexion established
+  m_text: Connextion established
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10e268e65f6dcfa42bfcf5922d12f2ec, type: 2}
   m_sharedMaterial: {fileID: 6798045901685676316, guid: 10e268e65f6dcfa42bfcf5922d12f2ec, type: 2}
@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -818.64514, w: 0}
+  m_margin: {x: 0, y: 0, z: -1085.9551, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1230,7 +1230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: you know what you have to do uWU
+  m_text: u know what u have to do uWU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10e268e65f6dcfa42bfcf5922d12f2ec, type: 2}
   m_sharedMaterial: {fileID: 6798045901685676316, guid: 10e268e65f6dcfa42bfcf5922d12f2ec, type: 2}
