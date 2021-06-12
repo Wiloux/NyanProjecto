@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1058717646}
   m_Layer: 0
-  m_Name: Heart
+  m_Name: PlayerHeart
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1252,8 +1252,8 @@ MonoBehaviour:
   camZoomTransitionDuration: 0.2
   staggerDuration: 0.75
   staggerForce: 250
-  invulnerabilityDuration: 2
-  tpInvulnerabilityDuration: 0.1
+  staggerInvulnerabilityDuration: 2
+  tpInvulnerabilityDuration: 0.5
 --- !u!114 &915882033761489366
 MonoBehaviour:
   m_ObjectHideFlags: 0
