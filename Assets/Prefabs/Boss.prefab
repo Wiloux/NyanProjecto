@@ -421,7 +421,7 @@ MonoBehaviour:
   damageOnCollision: 20
   currentState: 0
   waitAmountBtwDrops: 0.5
-  circleRadius: 50
+  circleRadius: 47.47
   amountOfDropsMax: 20
   salivaDrop: {fileID: 9100142695649780192, guid: dd889a8c6f9252248a6cf6fcf3d727bd, type: 3}
   acidPonds: []

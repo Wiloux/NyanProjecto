@@ -140,7 +140,7 @@ MonoBehaviour:
   bossScript: {fileID: 0}
   mask:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 128
   marker: {fileID: 523908194774607494, guid: dd1a5c8a0d98df34ca3201dacaa9a8a4, type: 3}
   poison: {fileID: 523908194774607494, guid: b949f8ac62603fe4fb24bf29fda01367, type: 3}
   damage: 50

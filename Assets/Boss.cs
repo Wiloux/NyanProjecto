@@ -269,12 +269,8 @@ public class Boss : MonoBehaviour
     }
     Vector3 RandompPointOnUnityCircle(float radius)
     {
-        float angle = Random.Range(0f, Mathf.PI * 2);
-        float x = Mathf.Sin(angle) * radius;
-        float y = Mathf.Cos(angle) * radius;
-
-        Vector3 RdmSpherePos = Random.onUnitSphere * radius;
-        return new Vector3(RdmSpherePos.x, transform.position.y + 40f, RdmSpherePos.z);
+        Vector3 RdmSpherePos = (Random.onUnitSphere * radius) + transform.position;
+        return new Vector3(RdmSpherePos.x, RdmSpherePos.y + 20f, RdmSpherePos.z);
     }
 
     void HeadsLookAtPlayer()
