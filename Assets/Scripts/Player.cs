@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float gunFireRate;
     private float nextTimeToFire;
+    private bool gunShooting;
 
     [Space(10)]
     [SerializeField] private Animator animator;
@@ -54,6 +55,22 @@ public class Player : MonoBehaviour
     private Camera cam;
     public Image healthImg;
     public GameObject bowTie;
+
+    [Header("Audio")]
+    [Space(20)]
+    [SerializeField] private AudioSource mainAudioSource;
+    [SerializeField] private AudioSource movementAudioSource;
+    [Space(5)]
+    [Header("Sounds")]
+    [SerializeField] private ClipVolume spearThrowAudio;
+    [SerializeField] private ClipVolume shootingAudio;
+    [SerializeField] private ClipVolume stopShootingAudio;
+    [SerializeField] private ClipVolume dashToSpearAudio;
+    [SerializeField] private ClipVolume deathAudio;
+    [SerializeField] private ClipVolume gettingHitAudio;
+    [Space(5)]
+    [Header("Movement sounds")]
+    [SerializeField] private ClipVolume stepAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -111,11 +128,19 @@ public class Player : MonoBehaviour
                             // Guns
                             if (Time.time >= nextTimeToFire)
                             {
+                                gunShooting = true;
+
                                 nextTimeToFire = Time.time + 1 / gunFireRate;
                                 // Shoot
                                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                                 bullet.movement = cam.transform.forward * bulletSpeed;
+                                shootingAudio.Play(mainAudioSource);
                             }
+                        }
+                        else if (KeyInput.GetFireKeyUp())
+                        {
+                            gunShooting = false;
+                            stopShootingAudio.Play(mainAudioSource);
                         }
                     }
                     else
@@ -144,6 +169,12 @@ public class Player : MonoBehaviour
                 }
                 else if (KeyInput.GetZoomKeyUp() && aiming)
                 {
+                    if (gunShooting)
+                    {
+                        gunShooting = false;
+                        stopShootingAudio.Play(mainAudioSource);
+                    }
+
                     // End Zoom
                     UnZoomCam();
 
@@ -215,12 +246,16 @@ public class Player : MonoBehaviour
         spear.gameObject.SetActive(true);
         spear.ResetForLaunch();
         spearRigidbody.AddForce(direction * spearLaunchForce);
+
+        spearThrowAudio.Play(mainAudioSource);
     }
 
     private void DashToSpear(System.Action onDashFinished)
     {
         GetInvulnerability(dashToSpearDuration);
         StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => { spear.DisableSpear(); onDashFinished?.Invoke(); }));
+
+        dashToSpearAudio.Play(mainAudioSource);
     }
     #endregion
 
@@ -243,6 +278,8 @@ public class Player : MonoBehaviour
 
             GetStaggered();
             GetInvulnerability(staggerInvulnerabilityDuration);
+
+            gettingHitAudio.Play(mainAudioSource);
         }
     }
 
@@ -262,6 +299,8 @@ public class Player : MonoBehaviour
                 GameHandler.enableControls = true;
                 //GameHandler.SetPause(false);
             });
+
+            deathAudio.Play(mainAudioSource);
         }
     }
     #endregion
@@ -316,6 +355,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region Invulnerability/Stagger effects
     private void GetStaggered()
     {
         animator.SetBool("Walking", false);
@@ -333,4 +373,11 @@ public class Player : MonoBehaviour
     {
         invulnerabilityTimer = duration;
     }
+    #endregion
+
+    public void PlayStepSound()
+    {
+        stepAudio.Play(movementAudioSource);
+    }
+
 }

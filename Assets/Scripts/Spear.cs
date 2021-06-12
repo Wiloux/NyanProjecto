@@ -19,9 +19,17 @@ public class Spear : MonoBehaviour
     private Transform playerHeart;
     private Transform bossHeart;
 
+    [Header("Sounds")]
+    [Space(20)]
+    [SerializeField] private ClipVolume flyingAudio;
+    [SerializeField] private ClipVolume plantingAudio;
+    [SerializeField] private ClipVolume touchingBossAudio;
+    private AudioSource audioSource;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         link.enabled = false;
         playerHeart = GameObject.Find("PlayerHeart").transform;
         bossHeart = GameObject.Find("BossHeart").transform;
@@ -36,10 +44,7 @@ public class Spear : MonoBehaviour
         if (stopping)
         {
             transform.rotation = finalRot;
-            if (linkedToBoss)
-            {
-                UpdateLink();
-            }
+            UpdateLink();
         }
 
        
@@ -49,17 +54,21 @@ public class Spear : MonoBehaviour
     {
         if (!stopping)
         {
+            audioSource.Stop();
+
             if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
-                SetLink();
+                touchingBossAudio.Play(audioSource);
             }
+            else plantingAudio.Play(audioSource);
 
             //Debug.Log($"Touched {collision.transform.name}");
             collider.enabled = false;
             stopping = true;
             finalRot = transform.rotation;
             Invoke(nameof(StopMovement), timeWithoutCollider);
+            SetLink();
         }
     }
 
@@ -85,7 +94,8 @@ public class Spear : MonoBehaviour
         rb.velocity = Vector3.zero;
         StopAllCoroutines();
         Invoke(nameof(EnableCollider), 0.05f);
-        
+
+        flyingAudio.Play(audioSource);
         link.enabled = false;
     }
 
@@ -108,7 +118,7 @@ public class Spear : MonoBehaviour
     }
     private void UpdateLink()
     {
-        link.SetPosition(0, bossHeart.position);
+        link.SetPosition(0, linkedToBoss ? bossHeart.position : transform.position);
         link.SetPosition(1, playerHeart.position);
     }
 }

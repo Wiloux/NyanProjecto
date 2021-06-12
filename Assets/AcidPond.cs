@@ -14,7 +14,7 @@ public class AcidPond : MonoBehaviour
 
     void Start()
     {
-        timer = timerMax;      
+        timer = timerMax;
     }
 
     // Update is called once per frame

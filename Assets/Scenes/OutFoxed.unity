@@ -366,6 +366,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2205447154419871858, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151913945558753537, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302776, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_Name
       value: Boss (1)
@@ -2406,10 +2414,6 @@ PrefabInstance:
       propertyPath: healthImg
       value: 
       objectReference: {fileID: 968506797}
-    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: spearCooldownDuration
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 915882033761489363, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: m_Name
       value: Player

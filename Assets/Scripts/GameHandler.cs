@@ -39,3 +39,19 @@ public class GameHandler : MonoBehaviour
         onInput?.Invoke();
     }
 }
+[System.Serializable] public class ClipVolume
+{
+    public AudioClip clip;
+    [Range(0,1)] public float volume = 1f;
+
+    public void Play(AudioSource audioSource, bool looping = false)
+    {
+        if (clip == null || audioSource == null) return;
+
+        if (audioSource.isPlaying) audioSource.Stop();
+        audioSource.loop = looping;
+        audioSource.clip = clip;
+        audioSource.volume = volume;
+        audioSource.Play();
+    }
+}
