@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
         if (!GameHandler.isPaused)
         {
             spear.hackPanel.SetActive(spear.linkedToBoss);
-            bowTie.SetActive(spear.linkedToBoss);
+            bowTie.SetActive(!spear.linkedToBoss);
 
             if (GameHandler.enableControls && !Staggered)
             {
