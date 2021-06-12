@@ -74,14 +74,14 @@ public class Player : MonoBehaviour
             {
                 bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
 
-                if (Input.GetKeyDown(KeyCode.E) && spear.gameObject.activeSelf && spear.stopping)
+                if (KeyInput.GetDashKeyDown() && spear.gameObject.activeSelf && spear.stopping)
                 {
                     // Dash to spear
                     DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
                 }
 
                 #region Zoom
-                else if (Input.GetMouseButtonDown(1) && (!spear.gameObject.activeSelf || spearLinkedToTheBoss))
+                else if (KeyInput.GetZoomKeyDown() && (!spear.gameObject.activeSelf || spearLinkedToTheBoss))
                 {
                     // Start Zoom
                     ZoomCam();
@@ -89,13 +89,13 @@ public class Player : MonoBehaviour
                     // Set zooming
                     animator.SetBool("Aim", true);
                 }
-                else if (Input.GetMouseButton(1) && aiming)
+                else if (KeyInput.GetZoomKey() && aiming)
                 {
                     // Launc Spear / Shoot with gun
                     #region Launch speat / shoot with gun
                     if (spearLinkedToTheBoss)
                     {
-                        if (Input.GetMouseButton(0))
+                        if (KeyInput.GetFireKey())
                         {
                             // Guns
                             if (Time.time >= nextTimeToFire)
@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
                     }
                     else
                     {
-                        if (Input.GetMouseButtonDown(0) && !spear.gameObject.activeSelf)
+                        if (KeyInput.GetFireKeyDown() && !spear.gameObject.activeSelf)
                         {
                             // Launch Spear
                             LaunchSpear(cam.transform.forward);
@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
                         transform.rotation = Quaternion.RotateTowards(transform.rotation, controller.camPivot.transform.rotation, controller.rotationSpeed);
                     }
                 }
-                else if (Input.GetMouseButtonUp(1) && aiming)
+                else if (KeyInput.GetZoomKeyUp() && aiming)
                 {
                     // End Zoom
                     UnZoomCam();
@@ -275,6 +275,8 @@ public class Player : MonoBehaviour
 
     private void UnZoomCam()
     {
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+
         if (camZoomingCoroutine != null) StopCoroutine(camZoomingCoroutine);
         camZoomingCoroutine = UnZoomCamCoroutine();
         StartCoroutine(camZoomingCoroutine);
