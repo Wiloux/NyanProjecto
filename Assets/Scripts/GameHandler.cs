@@ -39,3 +39,8 @@ public class GameHandler : MonoBehaviour
         onInput?.Invoke();
     }
 }
+[System.Serializable] public class ClipVolume
+{
+    public AudioClip clip;
+    [Range(0,1)] public float volume = 1f;
+}

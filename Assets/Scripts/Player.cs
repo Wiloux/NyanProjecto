@@ -55,6 +55,14 @@ public class Player : MonoBehaviour
     public Image healthImg;
     public GameObject bowTie;
 
+    [Header("Sounds")]
+    [Space(20)]
+    [SerializeField] private ClipVolume spearThrowAudio;
+    [SerializeField] private ClipVolume shootingAudio;
+    [SerializeField] private ClipVolume stopShootingAudio;
+    [SerializeField] private ClipVolume dashToSpearAudio;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +77,7 @@ public class Player : MonoBehaviour
         spearRigidbody = spear.GetComponent<Rigidbody>();
 
         cam = Camera.main;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -115,7 +124,12 @@ public class Player : MonoBehaviour
                                 // Shoot
                                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                                 bullet.movement = cam.transform.forward * bulletSpeed;
+                                PlayAudioClip(shootingAudio, true);
                             }
+                        }
+                        if (KeyInput.GetFireKeyUp())
+                        {
+                            PlayAudioClip(stopShootingAudio);
                         }
                     }
                     else
@@ -215,12 +229,16 @@ public class Player : MonoBehaviour
         spear.gameObject.SetActive(true);
         spear.ResetForLaunch();
         spearRigidbody.AddForce(direction * spearLaunchForce);
+
+        PlayAudioClip(spearThrowAudio);
     }
 
     private void DashToSpear(System.Action onDashFinished)
     {
         GetInvulnerability(dashToSpearDuration);
         StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => { spear.DisableSpear(); onDashFinished?.Invoke(); }));
+
+        PlayAudioClip(dashToSpearAudio);
     }
     #endregion
 
@@ -316,6 +334,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region Invulnerability/Stagger effects
     private void GetStaggered()
     {
         animator.SetBool("Walking", false);
@@ -332,5 +351,16 @@ public class Player : MonoBehaviour
     private void GetInvulnerability(float duration)
     {
         invulnerabilityTimer = duration;
+    }
+    #endregion
+
+    private void PlayAudioClip(ClipVolume clipVolume, bool looping = false)
+    {
+        if (clipVolume.clip == null) return;
+        if (audioSource.isPlaying) audioSource.Stop();
+        audioSource.loop = looping;
+        audioSource.volume = clipVolume.volume;
+        audioSource.clip = clipVolume.clip;
+        audioSource.Play();
     }
 }
