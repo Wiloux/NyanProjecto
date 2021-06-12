@@ -27,6 +27,10 @@ public class Saliva : MonoBehaviour
         {
             spawnedMarker = Instantiate(marker, new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z), Quaternion.LookRotation(-hit.normal));
         }
+        else
+        {
+            Destroy(gameObject);
+        }
 
     }
 
@@ -38,7 +42,9 @@ public class Saliva : MonoBehaviour
     {
         if (other.CompareTag("Ground"))
         {
-            GameObject spawnedPoison = Instantiate(poison, spawnedMarker.transform.position, spawnedMarker.transform.rotation);
+            GameObject spawnedPoison = Instantiate(poison, 
+                spawnedMarker.transform.position, 
+                spawnedMarker.transform.rotation);
             AcidPond acidscript = spawnedPoison.GetComponent<AcidPond>();
             acidscript.bossScript = bossScript;
             if (bossScript.currentState == Boss.bossStates.Stage3)

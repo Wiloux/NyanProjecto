@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float gunFireRate;
     private float nextTimeToFire;
+    private bool gunShooting;
 
     [Space(10)]
     [SerializeField] private Animator animator;
@@ -127,6 +128,8 @@ public class Player : MonoBehaviour
                             // Guns
                             if (Time.time >= nextTimeToFire)
                             {
+                                gunShooting = true;
+
                                 nextTimeToFire = Time.time + 1 / gunFireRate;
                                 // Shoot
                                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
@@ -134,8 +137,9 @@ public class Player : MonoBehaviour
                                 shootingAudio.Play(mainAudioSource);
                             }
                         }
-                        if (KeyInput.GetFireKeyUp())
+                        else if (KeyInput.GetFireKeyUp())
                         {
+                            gunShooting = false;
                             stopShootingAudio.Play(mainAudioSource);
                         }
                     }
@@ -165,6 +169,12 @@ public class Player : MonoBehaviour
                 }
                 else if (KeyInput.GetZoomKeyUp() && aiming)
                 {
+                    if (gunShooting)
+                    {
+                        gunShooting = false;
+                        stopShootingAudio.Play(mainAudioSource);
+                    }
+
                     // End Zoom
                     UnZoomCam();
 
