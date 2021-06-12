@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform firePos;
     [SerializeField] private Spear spear;
     private Rigidbody spearRigidbody;
+    [SerializeField] private float spearCooldownDuration;
+    private float spearCooldown;
+    private bool HasSpearCooldown => spearCooldown <= 0;
     [SerializeField] private float spearLaunchForce;
     [SerializeField] private float dashToSpearDuration = 0.2f;
 
@@ -73,7 +76,6 @@ public class Player : MonoBehaviour
     {
         healthImg.fillAmount = health / maxHealth;
 
-
         if (!GameHandler.isPaused)
         {
             spear.hackPanel.SetActive(spear.linkedToBoss);
@@ -83,15 +85,14 @@ public class Player : MonoBehaviour
             {
                 bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
 
-                if (KeyInput.GetDashKeyDown() && spear.gameObject.activeSelf && spear.stopping)
+                if (KeyInput.GetDashKeyDown() && spear.gameObject.activeSelf)
                 {
-
                     // Dash to spear
                     DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
                 }
 
                 #region Zoom
-                else if (KeyInput.GetZoomKeyDown() && (!spear.gameObject.activeSelf || spearLinkedToTheBoss))
+                else if (KeyInput.GetZoomKeyDown() && ((!spear.gameObject.activeSelf && HasSpearCooldown) || spearLinkedToTheBoss))
                 {
                     // Start Zoom
                     ZoomCam();
@@ -122,7 +123,10 @@ public class Player : MonoBehaviour
                         if (KeyInput.GetFireKeyDown() && !spear.gameObject.activeSelf)
                         {
                             // Launch Spear
-                            LaunchSpear(cam.transform.forward);
+                            if(HasSpearCooldown)
+                            {
+                                LaunchSpear(cam.transform.forward);
+                            }
 
                             UnZoomCam();
                             animator.SetBool("Aim", false);
@@ -178,6 +182,7 @@ public class Player : MonoBehaviour
             }
 
             if (invulnerabilityTimer > 0) invulnerabilityTimer -= Time.deltaTime;
+            if (spearCooldown > 0) spearCooldown -= Time.deltaTime;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -188,23 +193,24 @@ public class Player : MonoBehaviour
         Debug.DrawRay(cam.transform.position, cam.transform.forward * 3, Color.red);
     }
 
-    private void OnGUI()
-    {
-        GUIStyle style = new GUIStyle
-        {
-            fontSize = 40
-        };
-        style.normal.textColor = Color.white;
+    //private void OnGUI()
+    //{
+    //    GUIStyle style = new GUIStyle
+    //    {
+    //        fontSize = 40
+    //    };
+    //    style.normal.textColor = Color.white;
 
-        string message = $"Health:{health} ";
-        if (Staggered) message += $"Stagger:{staggerTimer} ";
-        if (Invulnerable) message += $"invulnerable:{invulnerabilityTimer} ";
-        GUILayout.Label(message, style);
-    }
+    //    string message = $"Health:{health} ";
+    //    if (Staggered) message += $"Stagger:{staggerTimer} ";
+    //    if (Invulnerable) message += $"invulnerable:{invulnerabilityTimer} ";
+    //    GUILayout.Label(message, style);
+    //}
 
     #region Spear Functions
     private void LaunchSpear(Vector3 direction)
     {
+        spearCooldown = spearCooldownDuration;
         spear.transform.position = transform.position;
         spear.gameObject.SetActive(true);
         spear.ResetForLaunch();
@@ -213,6 +219,7 @@ public class Player : MonoBehaviour
 
     private void DashToSpear(System.Action onDashFinished)
     {
+        GetInvulnerability(dashToSpearDuration);
         StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => { spear.DisableSpear(); onDashFinished?.Invoke(); }));
     }
     #endregion
