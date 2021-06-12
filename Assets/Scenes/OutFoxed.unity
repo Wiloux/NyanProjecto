@@ -1292,11 +1292,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 915882033761489363, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
   m_PrefabInstance: {fileID: 915882032500134905}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1217582775 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5244191929250909412, guid: 5fbd30164be345f4b925c14baa0c6fac, type: 3}
-  m_PrefabInstance: {fileID: 5244191928302066259}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1305559598 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 915882033761489367, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
@@ -2026,66 +2021,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 915882032426530656, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 915882033049799539, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: spear
       value: 
       objectReference: {fileID: 1805344591}
-    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 915882032500134906}
-    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: bulletSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: gunFireRate
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: camZoomTransitionDuration
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 915882033761489363, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 915882033761489363, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: m_Layer
-      value: 3
+    - target: {fileID: 915882033761489365, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 915882033761489363, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 915882033761489366, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 915882032500134906}
     - target: {fileID: 915882033761489366, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: camPivot
       value: 
       objectReference: {fileID: 438974208}
-    - target: {fileID: 915882033761489366, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: camRotator
-      value: 
-      objectReference: {fileID: 1217582775}
-    - target: {fileID: 915882033761489366, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: rotationSpeed
-      value: 720
-      objectReference: {fileID: 0}
-    - target: {fileID: 915882033761489366, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: camRotatorVerticalAngleMinMax.x
-      value: -30
-      objectReference: {fileID: 0}
     - target: {fileID: 915882033761489367, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2130,29 +2081,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 915882033921226484, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 915882033921226487, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 915882033921226487, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.41
-      objectReference: {fileID: 0}
-    - target: {fileID: 915882033921226487, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.55
-      objectReference: {fileID: 0}
+    - target: {fileID: 2252072698186954724, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 70e57b37ca40b8741b680156fe2c7e47, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
---- !u!95 &915882032500134906 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1216184737790528281, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
-  m_PrefabInstance: {fileID: 915882032500134905}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3980216697230600144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2163,10 +2097,6 @@ PrefabInstance:
     - target: {fileID: 3980216695428577434, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
       propertyPath: m_Name
       value: Spear
-      objectReference: {fileID: 0}
-    - target: {fileID: 3980216695428577434, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3980216695428577438, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
       propertyPath: m_RootOrder
@@ -2211,10 +2141,6 @@ PrefabInstance:
     - target: {fileID: 3980216695428577438, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3980216695682157420, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
-      propertyPath: m_Layer
-      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
