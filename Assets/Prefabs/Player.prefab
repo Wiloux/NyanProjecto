@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1058717645
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1058717646}
+  m_Layer: 0
+  m_Name: Heart
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1058717646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058717645}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5099714259244550225}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &54445089623513614
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +428,7 @@ Transform:
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 0.99999994}
   m_Children:
   - {fileID: 7563795971662765573}
+  - {fileID: 1058717646}
   m_Father: {fileID: 1971534396773635083}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1085,7 +1116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 915882032426530659}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1121,7 +1152,7 @@ GameObject:
   - component: {fileID: 915882033761489366}
   - component: {fileID: 915882033761489362}
   - component: {fileID: 915882033761489353}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1215,8 +1246,10 @@ MonoBehaviour:
   dashToSpearDuration: 0.1
   gun: {fileID: 0}
   bulletPrefab: {fileID: 5311716066549033173, guid: 83187f1889fc44240914c827c0836266, type: 3}
-  bulletSpeed: 0
-  gunFireRate: 0
+  bulletSpeed: 50
+  gunFireRate: 20
+  animator: {fileID: 1216184737790528281}
+  camZoomTransitionDuration: 0.2
 --- !u!114 &915882033761489366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1229,14 +1262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5b3e3751e6f7b142bf80f2fe090b252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   moveSpeed: 5
   runSpeed: 8
-  rotationSpeed: 360
-  camRotator: {fileID: 0}
-  camRotatorVerticalAngleMinMax: {x: -35, y: 20}
+  rotationSpeed: 720
+  camPivot: {fileID: 0}
+  camRotatorVerticalAngleMinMax: {x: -30, y: 20}
   groundCheck: {fileID: 915882032426530659}
   horizontalMouseSensivity: 20
   verticalMouseSensivity: 40
+  animator: {fileID: 1216184737790528281}
 --- !u!136 &915882033761489362
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1276,7 +1311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 915882033921226487}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FirePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1291,7 +1326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915882033921226484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.63, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.41, z: 0.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 915882033761489367}
@@ -6649,7 +6684,7 @@ Animator:
   m_GameObject: {fileID: 6239576186888335962}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 70e57b37ca40b8741b680156fe2c7e47, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

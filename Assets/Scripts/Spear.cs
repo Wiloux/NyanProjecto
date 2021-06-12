@@ -12,9 +12,15 @@ public class Spear : MonoBehaviour
 
     [HideInInspector] public bool linkedToBoss = false;
 
+    [SerializeField] private LineRenderer link;
+
+    private Transform playerHeart;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        link.enabled = false;
+        playerHeart = GameObject.Find("Heart").transform;
     }
 
     private void Update()
@@ -26,6 +32,10 @@ public class Spear : MonoBehaviour
         if (stopping)
         {
             transform.rotation = finalRot;
+            if (linkedToBoss)
+            {
+                link.SetPosition(1, playerHeart.position);
+            }
         }
     }
 
@@ -36,6 +46,7 @@ public class Spear : MonoBehaviour
             if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
+                SetLink(collision.transform.position);
             }
 
             //Debug.Log($"Touched {collision.transform.name}");
@@ -46,6 +57,8 @@ public class Spear : MonoBehaviour
         }
     }
 
+    #region Stop/Reset/Enable..
+
     private void StopMovement()
     {
         rb.velocity = Vector3.zero;
@@ -53,6 +66,11 @@ public class Spear : MonoBehaviour
         //Debug.Log("Stopped");
     }
 
+    private void ResetBase()
+    {
+        linkedToBoss = false;
+        stopping = false;
+    }
     public void ResetForLaunch()
     {
         ResetBase();
@@ -60,6 +78,8 @@ public class Spear : MonoBehaviour
         rb.useGravity = true;
         rb.velocity = Vector3.zero;
         Invoke(nameof(EnableCollider), 0.05f);
+
+        link.enabled = false;
     }
 
     private void EnableCollider()
@@ -72,10 +92,12 @@ public class Spear : MonoBehaviour
         ResetBase();
         gameObject.SetActive(false);
     }
+    #endregion
 
-    private void ResetBase()
+    private void SetLink(Vector3 position)
     {
-        linkedToBoss = false;
-        stopping = false;
+        link.enabled = true;
+        link.SetPosition(0, position);
+        link.SetPosition(1, FindObjectOfType<Player>().transform.position);
     }
 }
