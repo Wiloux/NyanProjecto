@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     // Choose current speed
-                    bool running = Input.GetKey(KeyCode.LeftShift);
+                    bool running = KeyInput.GetSprintKey();
                     float currentSpeed = running ? runSpeed : moveSpeed;
 
                     // Animator
@@ -88,11 +88,11 @@ public class PlayerController : MonoBehaviour
                 //Debug.DrawRay(transform.position, transform.right, Color.red);
 
                 // Rotate the cam pivot on the Y axis depending on the MouseX axis
-                float rotX = Input.GetAxis("Mouse X") * horizontalMouseSensivity * Mathf.Deg2Rad;
+                float rotX = KeyInput.GetHorizontalCamAxis() * horizontalMouseSensivity * Mathf.Deg2Rad;
                 camPivot.transform.Rotate(0, rotX, 0);
 
                 // Rotate the cam pivot on the X axis depending on the MouseY axis
-                float rotY = Input.GetAxis("Mouse Y") * verticalMouseSensivity * Mathf.Deg2Rad;
+                float rotY = KeyInput.GetVerticalCamAxis() * verticalMouseSensivity * Mathf.Deg2Rad;
                 camPivot.transform.Rotate(-rotY, 0, 0);
                 // Lock Camera pivot between two max angle on the X axis
                 if (camPivot.transform.localEulerAngles.x > camRotatorVerticalAngleMinMax.y && camPivot.transform.localEulerAngles.x < 360 + camRotatorVerticalAngleMinMax.x)
