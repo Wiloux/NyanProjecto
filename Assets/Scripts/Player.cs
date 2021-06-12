@@ -35,6 +35,17 @@ public class Player : MonoBehaviour
     [Space(10)]
     [SerializeField] private float camZoomTransitionDuration = 0.5f;
     IEnumerator camZoomingCoroutine;
+    private bool aiming;
+
+    [Space(10)]
+    [SerializeField] private float staggerDuration;
+    [SerializeField] private float staggerForce;
+    private float staggerTimer;
+    public bool Staggered => staggerTimer > 0;
+    [SerializeField] private float invulnerabilityDuration;
+    [SerializeField] private float tpInvulnerabilityDuration;
+    private float invulnerabilityTimer;
+    private bool Invulnerable => invulnerabilityTimer > 0;
 
     private Camera cam;
 
@@ -57,101 +68,114 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GameHandler.isPaused && GameHandler.enableControls)
+        if (!GameHandler.isPaused)
         {
-            bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
-
-            if (Input.GetKeyDown(KeyCode.E) && spear.gameObject.activeSelf)
+            if (GameHandler.enableControls && !Staggered)
             {
-                // Dash to spear
-                DashToSpear();
-            }
+                bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
 
-            else if (Input.GetMouseButtonDown(1))
-            {
-                // Start Zoom
-                if(camZoomingCoroutine != null) StopCoroutine(camZoomingCoroutine);
-                camZoomingCoroutine = ZoomCam();
-                StartCoroutine(camZoomingCoroutine);
-
-                // Set zooming
-                animator.SetBool("Aim", true);
-            }
-            else if (Input.GetMouseButton(1))
-            {
-                // Launc Spear / Shoot with gun
-                if (spearLinkedToTheBoss)
+                if (Input.GetKeyDown(KeyCode.E) && spear.gameObject.activeSelf)
                 {
-                    if (Input.GetMouseButton(0))
+                    // Dash to spear
+                    DashToSpear();
+                }
+
+                #region Zoom
+                else if (Input.GetMouseButtonDown(1) && (!spear.gameObject.activeSelf || spearLinkedToTheBoss))
+                {
+                    // Start Zoom
+                    ZoomCam();
+                    
+                    // Set zooming
+                    animator.SetBool("Aim", true);
+                }
+                else if (Input.GetMouseButton(1) && aiming)
+                {
+                    // Launc Spear / Shoot with gun
+                    #region Launch speat / shoot with gun
+                    if (spearLinkedToTheBoss)
                     {
-                        // Guns
-                        if (Time.time >= nextTimeToFire)
+                        if (Input.GetMouseButton(0))
                         {
-                            nextTimeToFire = Time.time + 1 / gunFireRate;
-                            // Shoot
-                            Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-                            bullet.movement = cam.transform.forward * bulletSpeed;
+                            // Guns
+                            if (Time.time >= nextTimeToFire)
+                            {
+                                nextTimeToFire = Time.time + 1 / gunFireRate;
+                                // Shoot
+                                Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                                bullet.movement = cam.transform.forward * bulletSpeed;
+                            }
                         }
                     }
-                }
-                else
-                {
-                    if (Input.GetMouseButtonDown(0))
+                    else
                     {
-                        // Launch Spear
-                        LaunchSpear(cam.transform.forward);
+                        if (Input.GetMouseButtonDown(0) && !spear.gameObject.activeSelf)
+                        {
+                            // Launch Spear
+                            LaunchSpear(cam.transform.forward);
+
+                            UnZoomCam();
+                            animator.SetBool("Aim", false);
+                        }
+                    }
+                    #endregion
+
+                    // Animator
+                    animator.SetBool("Spear", !spearLinkedToTheBoss);
+                    // Make the player look in the direction of the cam
+                    if (controller.camPivot.transform.forward != transform.forward)
+                    {
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, controller.camPivot.transform.rotation, controller.rotationSpeed);
                     }
                 }
-
-                // Animator
-                animator.SetBool("Spear", !spearLinkedToTheBoss);
-                // Make the player look in the direction of the cam
-                if (controller.camPivot.transform.forward != transform.forward)
+                else if (Input.GetMouseButtonUp(1) && aiming)
                 {
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, controller.camPivot.transform.rotation, controller.rotationSpeed);
+                    // End Zoom
+                    UnZoomCam();
+
+                    // Set not aiming
+                    animator.SetBool("Aim", false);
                 }
+                #endregion
+
+                #region Health gestion
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    health -= maxHealth / 5;
+                }
+
+                if (spear.linkedToBoss && spear.gameObject.activeSelf)
+                {
+                    health -= Time.deltaTime * healthDrain;
+                }
+
+                if (health < maxHealth)
+                {
+                    health += constantHealRegen * Time.deltaTime;
+                    if (health > maxHealth) health = maxHealth;
+                }
+
+                if (health <= 0 && !dead)
+                {
+                    Die();
+                }
+                #endregion
             }
-            else if (Input.GetMouseButtonUp(1))
+            else if (staggerTimer > 0)
             {
-                // End Zoom
-                if(camZoomingCoroutine != null) StopCoroutine(camZoomingCoroutine);
-                camZoomingCoroutine = UnZoomCam();
-                StartCoroutine(camZoomingCoroutine);
-
-                // Set not aiming
-                animator.SetBool("Aim", false);
+                staggerTimer -= Time.deltaTime;
+                if (staggerTimer < 0) animator.SetBool("Stagger", false);
             }
 
-            #region Health gestion
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                health -= maxHealth / 5;
-            }
-
-            if (spear.linkedToBoss && spear.gameObject.activeSelf)
-            {
-                health -= Time.deltaTime * healthDrain;
-            }
-
-            if (health < maxHealth)
-            {
-                health += constantHealRegen * Time.deltaTime;
-                if (health > maxHealth) health = maxHealth;
-            }
-
-            if (health <= 0 && !dead)
-            {
-                Die();
-            }
-            #endregion
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
-            }
-
-            Debug.DrawRay(cam.transform.position, cam.transform.forward * 3, Color.red);
+            if (invulnerabilityTimer > 0) invulnerabilityTimer -= Time.deltaTime;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+
+        Debug.DrawRay(cam.transform.position, cam.transform.forward * 3, Color.red);
     }
 
     private void OnGUI()
@@ -162,9 +186,13 @@ public class Player : MonoBehaviour
         };
         style.normal.textColor = Color.white;
 
-        GUILayout.Label($"Health: {health}", style);
+        string message = $"Health:{health} ";
+        if (Staggered) message += $"Stagger:{staggerTimer} ";
+        if (Invulnerable) message += $"invulnerable:{invulnerabilityTimer} ";
+        GUILayout.Label(message, style);
     }
 
+    #region Spear Functions
     private void LaunchSpear(Vector3 direction)
     {
         spear.transform.position = transform.position;
@@ -177,13 +205,28 @@ public class Player : MonoBehaviour
     {
         StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => spear.DisableSpear()));
     }
+    #endregion
 
-    public void DealDamage(float amount, bool hurtAnimation = true)
+    #region Health methods
+    public void DealDamage(float amount, Vector3? nullStaggerDirection = null)
     {
-        if (health <= 0) return;
-        if (hurtAnimation) animator.SetTrigger("Hurt");
+        if (health <= 0 || Invulnerable) return;
+
         health -= amount;
         if (health <= 0) Die();
+        else if (nullStaggerDirection != null)
+        {
+            Vector3 staggerDir = (Vector3)nullStaggerDirection;
+            staggerDir.y += 1;
+            staggerDir.Normalize();
+
+            animator.SetTrigger("Hurt");
+            controller.rb.velocity = new Vector3(0, controller.rb.velocity.y, 0);
+            controller.rb.AddForce(staggerDir * staggerForce);
+
+            GetStaggered();
+            GetInvulnerability();
+        }
     }
 
     private void Die()
@@ -192,6 +235,7 @@ public class Player : MonoBehaviour
         {
             dead = true;
             controller.rb.velocity = new Vector3(0, controller.rb.velocity.y, 0);
+            UnZoomCam();
             animator.SetTrigger("Dead");
             //GameHandler.SetPause(true);
             GameHandler.enableControls = false;
@@ -203,11 +247,21 @@ public class Player : MonoBehaviour
             });
         }
     }
+    #endregion
 
-    private IEnumerator ZoomCam()
+    #region Cam Zoom functions
+    private void ZoomCam()
+    {
+        if (camZoomingCoroutine != null) StopCoroutine(camZoomingCoroutine);
+        camZoomingCoroutine = ZoomCamCoroutine();
+        StartCoroutine(camZoomingCoroutine);
+
+        aiming = true;
+    }
+    private IEnumerator ZoomCamCoroutine()
     {
         float timer = 0;
-        while(timer < camZoomTransitionDuration)
+        while (timer < camZoomTransitionDuration)
         {
             if (cam.transform.localPosition != controller.camPivot.camZoomPosition.localPosition)
             {
@@ -219,10 +273,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator UnZoomCam()
+    private void UnZoomCam()
+    {
+        if (camZoomingCoroutine != null) StopCoroutine(camZoomingCoroutine);
+        camZoomingCoroutine = UnZoomCamCoroutine();
+        StartCoroutine(camZoomingCoroutine);
+
+        aiming = false;
+    }
+    private IEnumerator UnZoomCamCoroutine()
     {
         float timer = 0;
-        while(timer < camZoomTransitionDuration)
+        while (timer < camZoomTransitionDuration)
         {
             if (cam.transform.localPosition != controller.camPivot.camPosition.localPosition)
             {
@@ -232,5 +294,24 @@ public class Player : MonoBehaviour
             timer += Time.deltaTime;
             yield return null;
         }
+    }
+    #endregion
+
+    private void GetStaggered()
+    {
+        animator.SetBool("Walking", false);
+        animator.SetBool("Running", false);
+        animator.SetBool("Aim", false);
+        animator.SetBool("Spear", false);
+
+        animator.SetBool("Stagger", true);
+
+        UnZoomCam();
+
+        staggerTimer = staggerDuration;
+    }
+    private void GetInvulnerability()
+    {
+        invulnerabilityTimer = invulnerabilityDuration;
     }
 }

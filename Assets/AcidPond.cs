@@ -38,7 +38,7 @@ public class AcidPond : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().DealDamage(damageBySec * Time.deltaTime, false);
+            other.GetComponent<Player>().DealDamage(damageBySec * Time.deltaTime);
         }
     }
 }

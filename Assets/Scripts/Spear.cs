@@ -77,8 +77,9 @@ public class Spear : MonoBehaviour
         collider.enabled = false;
         rb.useGravity = true;
         rb.velocity = Vector3.zero;
+        StopAllCoroutines();
         Invoke(nameof(EnableCollider), 0.05f);
-
+        
         link.enabled = false;
     }
 

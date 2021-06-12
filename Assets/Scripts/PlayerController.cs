@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    private Player player;
 
     [HideInInspector] public Rigidbody rb;
 
@@ -38,12 +39,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        player = GetComponent<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!GameHandler.isPaused && GameHandler.enableControls)
+        if (!GameHandler.isPaused && GameHandler.enableControls && !player.Staggered)
         {
             if (!movingToSpear)
             {
