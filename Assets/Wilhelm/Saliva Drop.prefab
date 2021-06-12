@@ -144,6 +144,10 @@ MonoBehaviour:
   marker: {fileID: 523908194774607494, guid: dd1a5c8a0d98df34ca3201dacaa9a8a4, type: 3}
   poison: {fileID: 523908194774607494, guid: b949f8ac62603fe4fb24bf29fda01367, type: 3}
   damage: 50
+  audioSource: {fileID: 6675776552872881862}
+  hittingGroundAudio:
+    clip: {fileID: 8300000, guid: 9100292894e6d6f4f99859ed46d0cd3c, type: 3}
+    volume: 0.5
 --- !u!54 &7840270602627578066
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,7 +188,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -229,7 +233,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

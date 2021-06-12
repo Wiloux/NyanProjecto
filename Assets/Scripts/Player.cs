@@ -55,13 +55,21 @@ public class Player : MonoBehaviour
     public Image healthImg;
     public GameObject bowTie;
 
-    [Header("Sounds")]
+    [Header("Audio")]
     [Space(20)]
+    [SerializeField] private AudioSource mainAudioSource;
+    [SerializeField] private AudioSource movementAudioSource;
+    [Space(5)]
+    [Header("Sounds")]
     [SerializeField] private ClipVolume spearThrowAudio;
     [SerializeField] private ClipVolume shootingAudio;
     [SerializeField] private ClipVolume stopShootingAudio;
     [SerializeField] private ClipVolume dashToSpearAudio;
-    private AudioSource audioSource;
+    [SerializeField] private ClipVolume deathAudio;
+    [SerializeField] private ClipVolume gettingHitAudio;
+    [Space(5)]
+    [Header("Movement sounds")]
+    [SerializeField] private ClipVolume stepAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -77,7 +85,6 @@ public class Player : MonoBehaviour
         spearRigidbody = spear.GetComponent<Rigidbody>();
 
         cam = Camera.main;
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -124,12 +131,12 @@ public class Player : MonoBehaviour
                                 // Shoot
                                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                                 bullet.movement = cam.transform.forward * bulletSpeed;
-                                PlayAudioClip(shootingAudio, true);
+                                shootingAudio.Play(mainAudioSource);
                             }
                         }
                         if (KeyInput.GetFireKeyUp())
                         {
-                            PlayAudioClip(stopShootingAudio);
+                            stopShootingAudio.Play(mainAudioSource);
                         }
                     }
                     else
@@ -230,7 +237,7 @@ public class Player : MonoBehaviour
         spear.ResetForLaunch();
         spearRigidbody.AddForce(direction * spearLaunchForce);
 
-        PlayAudioClip(spearThrowAudio);
+        spearThrowAudio.Play(mainAudioSource);
     }
 
     private void DashToSpear(System.Action onDashFinished)
@@ -238,7 +245,7 @@ public class Player : MonoBehaviour
         GetInvulnerability(dashToSpearDuration);
         StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => { spear.DisableSpear(); onDashFinished?.Invoke(); }));
 
-        PlayAudioClip(dashToSpearAudio);
+        dashToSpearAudio.Play(mainAudioSource);
     }
     #endregion
 
@@ -261,6 +268,8 @@ public class Player : MonoBehaviour
 
             GetStaggered();
             GetInvulnerability(staggerInvulnerabilityDuration);
+
+            gettingHitAudio.Play(mainAudioSource);
         }
     }
 
@@ -280,6 +289,8 @@ public class Player : MonoBehaviour
                 GameHandler.enableControls = true;
                 //GameHandler.SetPause(false);
             });
+
+            deathAudio.Play(mainAudioSource);
         }
     }
     #endregion
@@ -354,13 +365,9 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    private void PlayAudioClip(ClipVolume clipVolume, bool looping = false)
+    public void PlayStepSound()
     {
-        if (clipVolume.clip == null) return;
-        if (audioSource.isPlaying) audioSource.Stop();
-        audioSource.loop = looping;
-        audioSource.volume = clipVolume.volume;
-        audioSource.clip = clipVolume.clip;
-        audioSource.Play();
+        stepAudio.Play(movementAudioSource);
     }
+
 }

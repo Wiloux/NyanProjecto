@@ -14,6 +14,11 @@ public class Saliva : MonoBehaviour
     [Space(10)]
     [SerializeField] private float damage;
 
+    [Header("Sounds")]
+    [Space(20)]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private ClipVolume hittingGroundAudio;
+
     void Start()
     {
         RaycastHit hit;
@@ -44,8 +49,13 @@ public class Saliva : MonoBehaviour
             {
                 acidscript.timerMax = bossScript.acidTimer;
             }
+
+            hittingGroundAudio.Play(audioSource);
+
             bossScript.acidPonds.Add(acidscript);
-            Destroy(gameObject);
+
+            GetComponentInChildren<Renderer>().enabled = false;
+            Destroy(gameObject, 5f);
             Destroy(spawnedMarker);
         }
 
@@ -55,6 +65,8 @@ public class Saliva : MonoBehaviour
             staggerDir.y = 0;
 
             other.GetComponent<Player>().DealDamage(damage, staggerDir);
+
+            hittingGroundAudio.Play(audioSource);
         }
     }
 
