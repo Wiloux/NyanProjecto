@@ -7,7 +7,7 @@ public class Spear : MonoBehaviour
     private Rigidbody rb;
     public new Collider collider;
     [SerializeField] private float timeWithoutCollider = 1f;
-    bool stopping;
+    [HideInInspector] public bool stopping;
     Quaternion finalRot;
 
     [HideInInspector] public bool linkedToBoss = false;
@@ -15,12 +15,14 @@ public class Spear : MonoBehaviour
     [SerializeField] private LineRenderer link;
 
     private Transform playerHeart;
+    private Transform bossHeart;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         link.enabled = false;
-        playerHeart = GameObject.Find("Heart").transform;
+        playerHeart = GameObject.Find("PlayerHeart").transform;
+        bossHeart = GameObject.Find("BossHeart").transform;
     }
 
     private void Update()
@@ -34,7 +36,7 @@ public class Spear : MonoBehaviour
             transform.rotation = finalRot;
             if (linkedToBoss)
             {
-                link.SetPosition(1, playerHeart.position);
+                UpdateLink();
             }
         }
     }
@@ -46,7 +48,7 @@ public class Spear : MonoBehaviour
             if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
-                SetLink(collision.transform.position);
+                SetLink();
             }
 
             //Debug.Log($"Touched {collision.transform.name}");
@@ -95,10 +97,14 @@ public class Spear : MonoBehaviour
     }
     #endregion
 
-    private void SetLink(Vector3 position)
+    private void SetLink()
     {
         link.enabled = true;
-        link.SetPosition(0, position);
-        link.SetPosition(1, FindObjectOfType<Player>().transform.position);
+        UpdateLink();
+    }
+    private void UpdateLink()
+    {
+        link.SetPosition(0, bossHeart.position);
+        link.SetPosition(1, playerHeart.position);
     }
 }

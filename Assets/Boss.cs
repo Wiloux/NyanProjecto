@@ -13,6 +13,7 @@ public class Boss : MonoBehaviour
     public float currentHealth;
     public float maxHealth;
     public bool isDamageable;
+    public float damageOnCollision = 20f;
 
     public enum bossStates { Stage1, Stage2, Stage3, Dead }
     [Header("States")]
@@ -100,6 +101,22 @@ public class Boss : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player") && currentState != bossStates.Dead)
+        {
+            //collision.
+            //ContactPoint[] contactPoints = new ContactPoint[1];
+            //collision.GetContacts(contactPoints);
+            //foreach(ContactPoint point in contactPoints)
+            //{
+
+            //}
+            Vector3 staggerDirection = collision.collider.bounds.center - transform.position;
+            staggerDirection.y = 0;
+            collision.transform.GetComponent<Player>().DealDamage(damageOnCollision, staggerDirection);
+        }
+    }
 
     private void ChooseAttack(bossStates stage)
     {

@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float staggerForce;
     private float staggerTimer;
     public bool Staggered => staggerTimer > 0;
-    [SerializeField] private float invulnerabilityDuration;
+    [SerializeField] private float staggerInvulnerabilityDuration;
     [SerializeField] private float tpInvulnerabilityDuration;
     private float invulnerabilityTimer;
     private bool Invulnerable => invulnerabilityTimer > 0;
@@ -74,10 +74,10 @@ public class Player : MonoBehaviour
             {
                 bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
 
-                if (Input.GetKeyDown(KeyCode.E) && spear.gameObject.activeSelf)
+                if (Input.GetKeyDown(KeyCode.E) && spear.gameObject.activeSelf && spear.stopping)
                 {
                     // Dash to spear
-                    DashToSpear();
+                    DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
                 }
 
                 #region Zoom
@@ -201,9 +201,9 @@ public class Player : MonoBehaviour
         spearRigidbody.AddForce(direction * spearLaunchForce);
     }
 
-    private void DashToSpear()
+    private void DashToSpear(System.Action onDashFinished)
     {
-        StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => spear.DisableSpear()));
+        StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => { spear.DisableSpear(); onDashFinished?.Invoke(); }));
     }
     #endregion
 
@@ -225,7 +225,7 @@ public class Player : MonoBehaviour
             controller.rb.AddForce(staggerDir * staggerForce);
 
             GetStaggered();
-            GetInvulnerability();
+            GetInvulnerability(staggerInvulnerabilityDuration);
         }
     }
 
@@ -310,8 +310,8 @@ public class Player : MonoBehaviour
 
         staggerTimer = staggerDuration;
     }
-    private void GetInvulnerability()
+    private void GetInvulnerability(float duration)
     {
-        invulnerabilityTimer = invulnerabilityDuration;
+        invulnerabilityTimer = duration;
     }
 }
