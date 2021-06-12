@@ -145,11 +145,11 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        GameHandler.instance.SetPause(true);
+        GameHandler.SetPause(true);
         GameHandler.instance.WaitForInput(2f, () =>
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-            Time.timeScale = 1;
+            GameHandler.SetPause(false);
         });
     }
 }

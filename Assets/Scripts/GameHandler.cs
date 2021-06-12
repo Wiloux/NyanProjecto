@@ -14,7 +14,7 @@ public class GameHandler : MonoBehaviour
 
     public static bool isPaused = false;
 
-    public void SetPause(bool pause)
+    public static void SetPause(bool pause)
     {
         isPaused = pause;
 
