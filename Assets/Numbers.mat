@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Numbers
-  m_Shader: {fileID: 4800000, guid: e260cfa7296ee7642b167f1eb5be5023, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: c07125a848396474d912c5e6d77d5d40, type: 3}
   m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -32,6 +32,18 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_23e3bb4b516d4fc1b5287b4f94e3e192:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_60e26b501cbb4ca2a85bb5afd7ff55ee:
+        m_Texture: {fileID: 2800000, guid: 9352131d029230d47b4a109904bc685e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_98823a16f358429db093ae14d1926a48:
+        m_Texture: {fileID: 2800000, guid: 46f538271e0edad46b0f329bf52f3486, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AlphaTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -146,6 +158,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_cb1d6045623f4ba5b4dae3a78de332ef: {r: 1, g: 1, b: 1, a: 0}
+    - Vector2_aa8a9fadb3834ec09360b7de2035bd69: {r: 0.1, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
