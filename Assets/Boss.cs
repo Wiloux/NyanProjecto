@@ -141,7 +141,7 @@ public class Boss : MonoBehaviour
         }
     }
 
-    void DealDmg(float dmg)
+    public void DealDmg(float dmg)
     {
         currentHealth = currentHealth - dmg;
         if (currentHealth / maxHealth <= 0.00f)

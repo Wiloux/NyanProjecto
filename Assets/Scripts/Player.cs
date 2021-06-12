@@ -49,66 +49,68 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
-        if (spearLinkedToTheBoss)
+        if (!GameHandler.isPaused)
         {
-            if (Input.GetMouseButton(0))
+            bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
+            if (spearLinkedToTheBoss)
             {
-                // Guns
-                if(Time.time >= nextTimeToFire)
+                if (Input.GetMouseButton(0))
                 {
-                    nextTimeToFire = Time.time + 1 / gunFireRate;
-                    // Shoot
-                    Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-                    bullet.movement = cam.transform.forward * bulletSpeed;
+                    // Guns
+                    if(Time.time >= nextTimeToFire)
+                    {
+                        nextTimeToFire = Time.time + 1 / gunFireRate;
+                        // Shoot
+                        Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                        bullet.movement = cam.transform.forward * bulletSpeed;
+                    }
                 }
             }
-        }
-        else
-        {
-            if (Input.GetMouseButtonDown(0))
+            else
             {
-                // Launch Spear
-                LaunchSpear(cam.transform.forward);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    // Launch Spear
+                    LaunchSpear(cam.transform.forward);
+                }
             }
-        }
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            // Dash to spear
-            DashToSpear();
-        }
+            if (Input.GetMouseButtonDown(1))
+            {
+                // Dash to spear
+                DashToSpear();
+            }
 
-        #region Health gestion
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            health -= maxHealth / 5;
-        }
+            #region Health gestion
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                health -= maxHealth / 5;
+            }
 
-        if (spear.linkedToBoss && spear.gameObject.activeSelf)
-        {
-            health -= Time.deltaTime * healthDrain;
-        }
+            if (spear.linkedToBoss && spear.gameObject.activeSelf)
+            {
+                health -= Time.deltaTime * healthDrain;
+            }
 
-        if (health < maxHealth)
-        {
-            health += constantHealRegen * Time.deltaTime;
-            if (health > maxHealth) health = maxHealth;
-        }
+            if (health < maxHealth)
+            {
+                health += constantHealRegen * Time.deltaTime;
+                if (health > maxHealth) health = maxHealth;
+            }
 
-        if (health <= 0)
-        {
-            // Die(
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-        }
-        #endregion
+            if (health <= 0)
+            {
+                Die();
+            }
+            #endregion
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
-        }
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+            }
 
-        Debug.DrawRay(cam.transform.position, cam.transform.forward * 3, Color.red);
+            Debug.DrawRay(cam.transform.position, cam.transform.forward * 3, Color.red);
+        }
     }
 
     private void OnGUI()
@@ -133,5 +135,21 @@ public class Player : MonoBehaviour
     private void DashToSpear()
     {
         StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => spear.DisableSpear()));
+    }
+
+    public void DealDamage(float amount)
+    {
+        health -= amount;
+        if (health <= 0) Die();
+    }
+
+    private void Die()
+    {
+        GameHandler.instance.SetPause(true);
+        GameHandler.instance.WaitForInput(2f, () =>
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            Time.timeScale = 1;
+        });
     }
 }

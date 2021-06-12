@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 {
 
     [SerializeField] private UnityEngine.ParticleSystem.Particle onHitParticle;
+    [SerializeField] private float damage = 1;
 
     public Vector3 movement;
 
@@ -19,9 +20,13 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Contains("Boss"))
+        if (other.CompareTag("Boss"))
         {
             // Deal damage to boss
+            Boss boss = other.GetComponent<Boss>();
+            if (boss == null) boss = other.GetComponentInParent<Boss>();
+
+            if (boss != null) boss.DealDmg(damage);
             //Debug.Log("damage");
         }
 

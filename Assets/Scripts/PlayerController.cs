@@ -41,60 +41,62 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!movingToSpear)
+        if (!GameHandler.isPaused)
         {
-            // Get input
-            Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-            if (input == Vector2.zero) rb.velocity = new Vector3(0, rb.velocity.y, 0);
-            else
+            if (!movingToSpear)
             {
-                // Choose current speed
-                float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
+                // Get input
+                Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-                // Get movement direction
-                input.Normalize();
-                Vector3 moveDirection = camRotator.transform.forward * input.y + input.x * camRotator.transform.right;
-                moveDirection.y = 0;
-
-                // Get the movement vector
-                Vector3 movement = moveDirection * currentSpeed;
-                movement.y = rb.velocity.y;
-
-                // Set the velocity of the player
-                rb.velocity = movement;
-
-                // Rotate the player depending of the movement direction
-                Quaternion targetRot = Quaternion.LookRotation(moveDirection, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
-            }
-
-            //Debug.DrawRay(transform.position, transform.forward, Color.green);
-            //Debug.DrawRay(transform.position, transform.right, Color.red);
-
-            // Rotate the cam pivot on the Y axis depending on the MouseX axis
-            float rotX = Input.GetAxis("Mouse X") * horizontalMouseSensivity * Mathf.Deg2Rad;
-            camRotator.Rotate(0, rotX, 0);
-
-            // Rotate the cam pivot on the X axis depending on the MouseY axis
-            float rotY = Input.GetAxis("Mouse Y") * verticalMouseSensivity * Mathf.Deg2Rad;
-            camRotator.Rotate(-rotY, 0, 0);
-            // Lock Camera pivot between two max angle on the X axis
-            if (camRotator.localEulerAngles.x > camRotatorVerticalAngleMinMax.y && camRotator.localEulerAngles.x < 360 + camRotatorVerticalAngleMinMax.x)
-            {
-                if (Mathf.Abs(camRotator.localEulerAngles.x - camRotatorVerticalAngleMinMax.y) < Mathf.Abs(camRotator.localEulerAngles.x - (360 + camRotatorVerticalAngleMinMax.x)))
-                {
-                    camRotator.localEulerAngles = new Vector3(camRotatorVerticalAngleMinMax.y, camRotator.localEulerAngles.y, 0);
-                }
+                if (input == Vector2.zero) rb.velocity = new Vector3(0, rb.velocity.y, 0);
                 else
                 {
-                    camRotator.localEulerAngles = new Vector3(camRotatorVerticalAngleMinMax.x, camRotator.localEulerAngles.y, 0);
-                }
-            }
-            // Reset the Z axis of the camera pivot
-            camRotator.localEulerAngles = new Vector3(camRotator.localEulerAngles.x, camRotator.localEulerAngles.y, 0);
-        }
+                    // Choose current speed
+                    float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : moveSpeed;
 
+                    // Get movement direction
+                    input.Normalize();
+                    Vector3 moveDirection = camRotator.transform.forward * input.y + input.x * camRotator.transform.right;
+                    moveDirection.y = 0;
+
+                    // Get the movement vector
+                    Vector3 movement = moveDirection * currentSpeed;
+                    movement.y = rb.velocity.y;
+
+                    // Set the velocity of the player
+                    rb.velocity = movement;
+
+                    // Rotate the player depending of the movement direction
+                    Quaternion targetRot = Quaternion.LookRotation(moveDirection, Vector3.up);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
+                }
+
+                //Debug.DrawRay(transform.position, transform.forward, Color.green);
+                //Debug.DrawRay(transform.position, transform.right, Color.red);
+
+                // Rotate the cam pivot on the Y axis depending on the MouseX axis
+                float rotX = Input.GetAxis("Mouse X") * horizontalMouseSensivity * Mathf.Deg2Rad;
+                camRotator.Rotate(0, rotX, 0);
+
+                // Rotate the cam pivot on the X axis depending on the MouseY axis
+                float rotY = Input.GetAxis("Mouse Y") * verticalMouseSensivity * Mathf.Deg2Rad;
+                camRotator.Rotate(-rotY, 0, 0);
+                // Lock Camera pivot between two max angle on the X axis
+                if (camRotator.localEulerAngles.x > camRotatorVerticalAngleMinMax.y && camRotator.localEulerAngles.x < 360 + camRotatorVerticalAngleMinMax.x)
+                {
+                    if (Mathf.Abs(camRotator.localEulerAngles.x - camRotatorVerticalAngleMinMax.y) < Mathf.Abs(camRotator.localEulerAngles.x - (360 + camRotatorVerticalAngleMinMax.x)))
+                    {
+                        camRotator.localEulerAngles = new Vector3(camRotatorVerticalAngleMinMax.y, camRotator.localEulerAngles.y, 0);
+                    }
+                    else
+                    {
+                        camRotator.localEulerAngles = new Vector3(camRotatorVerticalAngleMinMax.x, camRotator.localEulerAngles.y, 0);
+                    }
+                }
+                // Reset the Z axis of the camera pivot
+                camRotator.localEulerAngles = new Vector3(camRotator.localEulerAngles.x, camRotator.localEulerAngles.y, 0);
+            }
+        }
     }
 
     //private void OnDrawGizmosSelected()

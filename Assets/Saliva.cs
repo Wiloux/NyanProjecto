@@ -10,6 +10,10 @@ public class Saliva : MonoBehaviour
     public GameObject marker;
     public GameObject poison;
     GameObject spawnedMarker;
+
+    [Space(10)]
+    [SerializeField] private float damage;
+
     void Start()
     {
         RaycastHit hit;
@@ -46,7 +50,7 @@ public class Saliva : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            //DamageGoesHerelol
+            other.GetComponent<Player>().DealDamage(damage);
         }
     }
 
