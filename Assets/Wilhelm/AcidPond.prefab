@@ -111,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   timerMax: 5
+  damageBySec: 50
 --- !u!1 &4899572455945891473
 GameObject:
   m_ObjectHideFlags: 0

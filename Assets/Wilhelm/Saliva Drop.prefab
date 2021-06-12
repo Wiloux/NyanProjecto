@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7840270602627578066}
   - component: {fileID: -551201016725090015}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Saliva Drop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,11 +96,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf08bd9d1f7b26e41a3674e744fdc70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossScript: {fileID: 0}
   mask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
   marker: {fileID: 523908194774607494, guid: dd1a5c8a0d98df34ca3201dacaa9a8a4, type: 3}
   poison: {fileID: 523908194774607494, guid: b949f8ac62603fe4fb24bf29fda01367, type: 3}
+  damage: 50
 --- !u!54 &7840270602627578066
 Rigidbody:
   m_ObjectHideFlags: 0

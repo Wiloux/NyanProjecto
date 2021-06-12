@@ -33,7 +33,7 @@ public class Spear : MonoBehaviour
     {
         if (!stopping)
         {
-            if (collision.transform.name.Contains("Boss")) // temp
+            if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
             }

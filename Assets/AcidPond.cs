@@ -7,6 +7,10 @@ public class AcidPond : MonoBehaviour
     // Start is called before the first frame update
     public float timer;
     public float timerMax;
+
+    [Space(10)]
+    [SerializeField] private float damageBySec;
+
     void Start()
     {
         timer = timerMax;      
@@ -25,6 +29,14 @@ public class AcidPond : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<Player>().DealDamage(damageBySec * Time.deltaTime);
         }
     }
 }
