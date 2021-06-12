@@ -20,19 +20,22 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Boss"))
+        if (!other.isTrigger)
         {
-            // Deal damage to boss
-            Boss boss = other.GetComponent<Boss>();
-            if (boss == null) boss = other.GetComponentInParent<Boss>();
+            if (other.CompareTag("Boss"))
+            {
+                // Deal damage to boss
+                Boss boss = other.GetComponent<Boss>();
+                if (boss == null) boss = other.GetComponentInParent<Boss>();
 
-            if (boss != null) boss.DealDmg(damage);
-            //Debug.Log("damage");
-        }
+                if (boss != null) boss.DealDmg(damage);
+                //Debug.Log("damage");
+            }
 
-        if (!other.CompareTag("Player"))
-        {
-            Destroy(gameObject);
+            if (!other.CompareTag("Player"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

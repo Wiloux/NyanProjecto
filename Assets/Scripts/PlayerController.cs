@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    Rigidbody rb;
+    [HideInInspector] public Rigidbody rb;
 
     [Header("Speeds")]
     [SerializeField] private float moveSpeed;
