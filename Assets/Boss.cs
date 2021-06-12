@@ -7,6 +7,7 @@ public class Boss : MonoBehaviour
 
     public List<Transform> heads = new List<Transform>();
     public float lookSpd;
+    public GameObject player;
 
     [Header("Stats")]
     public float currentHealth;
@@ -27,13 +28,17 @@ public class Boss : MonoBehaviour
 
     [Header("LaserAttack")]
     public float laserTimerMax;
-    public GameObject player;
     public GameObject laserGameObject;
     public LineRenderer lr;
     public float chargeWidth;
     public float DmgWidth;
     public float laserSpd;
     public LayerMask _layermask;
+
+    [Header("PawsAttack")]
+    public float PawsTimerMax;
+    public GameObject Paws;
+
 
     [Header("AttackTimers")]
     public float waitForAttackTimerDurMin;
@@ -42,6 +47,7 @@ public class Boss : MonoBehaviour
     public float waitForAttackTimer;
 
     public Coroutine SalivaAttackCoro;
+    public Coroutine PawsAttackCoro;
     public Coroutine LaserAttackCoro;
     void Start()
     {
@@ -57,11 +63,11 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentState == bossStates.Dead)
+        if (currentState != bossStates.Dead)
         {
-        }
-        else
-        {
+            if (PawsAttackCoro == null)
+                BodyLooksAtPlayer();
+
             if (waitForAttackTimer >= 0)
             {
                 waitForAttackTimer -= Time.deltaTime;
@@ -104,10 +110,6 @@ public class Boss : MonoBehaviour
                 {
                     SalivaAttackCoro = StartCoroutine(SalivaRain());
                 }
-                else
-                {
-                    Debug.Log("Boss already salivating!");
-                }
                 break;
             case bossStates.Stage2:
                 int i = Random.Range(0, 2);
@@ -119,7 +121,6 @@ public class Boss : MonoBehaviour
                     }
                     else if (LaserAttackCoro == null)
                     {
-                        Debug.Log("Boss already salivating!");
                         LaserAttackCoro = StartCoroutine(LaserAttack());
                     }
                 }
@@ -132,12 +133,11 @@ public class Boss : MonoBehaviour
                     else if (SalivaAttackCoro == null)
                     {
                         SalivaAttackCoro = StartCoroutine(SalivaRain());
-                        Debug.Log("Boss already lasering!");
                     }
                 }
                 break;
             case bossStates.Stage3:
-                int j = Random.Range(0, 2);
+                int j = Random.Range(0, 3);
                 if (j == 0)
                 {
                     if (SalivaAttackCoro == null)
@@ -146,15 +146,14 @@ public class Boss : MonoBehaviour
                     }
                     else if (LaserAttackCoro == null)
                     {
-                        Debug.Log("Boss already salivating!");
                         LaserAttackCoro = StartCoroutine(LaserAttack());
                     }
-                    else
+                    else if (PawsAttackCoro == null)
                     {
-                        Debug.Log("BossAlreadyDoingBoth");
+                        PawsAttackCoro = StartCoroutine(PawsAttack());
                     }
                 }
-                else if (j != 0)
+                else if (j == 1)
                 {
                     if (LaserAttackCoro == null)
                     {
@@ -163,11 +162,25 @@ public class Boss : MonoBehaviour
                     else if (SalivaAttackCoro == null)
                     {
                         SalivaAttackCoro = StartCoroutine(SalivaRain());
-                        Debug.Log("Boss already lasering!");
                     }
-                    else
+                    else if (PawsAttackCoro == null)
                     {
-                        Debug.Log("BossAlreadyDoingBoth");
+                        PawsAttackCoro = StartCoroutine(PawsAttack());
+                    }
+                }
+                else
+                {
+                    if (PawsAttackCoro == null)
+                    {
+                        PawsAttackCoro = StartCoroutine(PawsAttack());
+                    }
+                    else if (SalivaAttackCoro == null)
+                    {
+                        SalivaAttackCoro = StartCoroutine(SalivaRain());
+                    }
+                    else if (LaserAttackCoro == null)
+                    {
+                        LaserAttackCoro = StartCoroutine(LaserAttack());
                     }
                 }
                 break;
@@ -188,7 +201,18 @@ public class Boss : MonoBehaviour
         SalivaAttackCoro = null;
         // currentState = bossStates.Idle;
     }
-
+    IEnumerator PawsAttack()
+    {
+        float pawsTimer = 0;
+        Paws.SetActive(true);
+        while (pawsTimer <= PawsTimerMax)
+        {
+            pawsTimer+= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        PawsAttackCoro = null;
+        Paws.SetActive(false);
+    }
     IEnumerator LaserAttack()
     {
         float laserTimer = 0;
@@ -246,6 +270,14 @@ public class Boss : MonoBehaviour
             //var targetRot = Quaternion.LookRotation(player.transform.position - head.transform.position);
             //head.transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, step);
         }
+    }
+
+    void BodyLooksAtPlayer()
+    {
+        float step = lookSpd * Time.deltaTime;
+        var targetRot = Quaternion.LookRotation(transform.position - player.transform.position);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, step);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
     public void DealDmg(float dmg)

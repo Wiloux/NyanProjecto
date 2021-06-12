@@ -1267,7 +1267,7 @@ MonoBehaviour:
   runSpeed: 8
   rotationSpeed: 720
   camPivot: {fileID: 0}
-  camRotatorVerticalAngleMinMax: {x: -30, y: 20}
+  camRotatorVerticalAngleMinMax: {x: -45, y: 20}
   groundCheck: {fileID: 915882032426530659}
   horizontalMouseSensivity: 20
   verticalMouseSensivity: 40

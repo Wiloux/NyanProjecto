@@ -38,7 +38,7 @@ public class Saliva : MonoBehaviour
             acidscript.bossScript = bossScript;
             if (bossScript.currentState == Boss.bossStates.Stage3)
             {
-                acidscript.timerMax = -1;
+                acidscript.timerMax = bossScript.acidTimer*2;
             }
             else
             {
