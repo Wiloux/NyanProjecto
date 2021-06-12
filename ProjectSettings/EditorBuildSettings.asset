@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/OutFoxed.unity
+    guid: 192669cfdcb5d39478dd832ad5f6bbe9
   m_configObjects: {}

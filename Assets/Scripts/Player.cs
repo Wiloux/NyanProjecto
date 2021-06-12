@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
     private new Collider collider;
     private PlayerController controller;
 
+    [SerializeField] private Transform firePos;
     [SerializeField] private Spear spear;
     private Rigidbody spearRigidbody;
     [SerializeField] private float spearLaunchForce;
+    [SerializeField] private float dashToSpearDuration = 0.2f;
 
     private Camera cam;
 
@@ -19,11 +21,8 @@ public class Player : MonoBehaviour
         controller = GetComponent<PlayerController>();
         spear.gameObject.SetActive(false);
 
-        Collider spearCollider = spear.GetComponent<Collider>();
-        if(spearCollider != null)
-        {
-            Physics.IgnoreCollision(collider, spearCollider);
-        }
+        collider = GetComponent<Collider>();
+        Physics.IgnoreCollision(collider, spear.collider);
 
         spearRigidbody = spear.GetComponent<Rigidbody>();
 
@@ -42,16 +41,25 @@ public class Player : MonoBehaviour
             // Dash to spear
             DashToSpear();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+
+        Debug.DrawRay(cam.transform.position, cam.transform.forward * 3, Color.red);
     }
 
     private void LaunchSpear(Vector3 direction)
     {
+        spear.transform.position = transform.position;
         spear.gameObject.SetActive(true);
+        spear.ResetForLaunch();
         spearRigidbody.AddForce(direction * spearLaunchForce);
     }
 
     private void DashToSpear()
     {
-        StartCoroutine(controller.LerpToPosition(spearRigidbody.position, 0.2f));
+        StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => spear.gameObject.SetActive(false)));
     }
 }
