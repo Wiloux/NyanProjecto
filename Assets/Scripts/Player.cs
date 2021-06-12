@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -48,6 +49,8 @@ public class Player : MonoBehaviour
     private bool Invulnerable => invulnerabilityTimer > 0;
 
     private Camera cam;
+    public Image healthImg;
+    public GameObject bowTie;
 
     // Start is called before the first frame update
     void Start()
@@ -68,10 +71,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthImg.fillAmount = health / maxHealth;
+
+
         if (!GameHandler.isPaused)
         {
-                spear.hackPanel.SetActive(spear.linkedToBoss);
-
+            spear.hackPanel.SetActive(spear.linkedToBoss);
+            bowTie.SetActive(spear.linkedToBoss);
 
             if (GameHandler.enableControls && !Staggered)
             {
@@ -89,7 +95,7 @@ public class Player : MonoBehaviour
                 {
                     // Start Zoom
                     ZoomCam();
-                    
+
                     // Set zooming
                     animator.SetBool("Aim", true);
                 }

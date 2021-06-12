@@ -1528,8 +1528,23 @@ PrefabInstance:
       propertyPath: spd
       value: 1.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8902730209459591898, guid: c645ab162581fdb43abdbecdaf3799ef, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c645ab162581fdb43abdbecdaf3799ef, type: 3}
+--- !u!114 &968506797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5107083249568176900, guid: c645ab162581fdb43abdbecdaf3799ef, type: 3}
+  m_PrefabInstance: {fileID: 966928868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &1065741108 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7021867503838864957, guid: 5fbd30164be345f4b925c14baa0c6fac, type: 3}
@@ -1933,6 +1948,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449365711}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1455194416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8902730209459591898, guid: c645ab162581fdb43abdbecdaf3799ef, type: 3}
+  m_PrefabInstance: {fileID: 966928868}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1556617889
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,6 +2398,14 @@ PrefabInstance:
       propertyPath: spear
       value: 
       objectReference: {fileID: 1805344591}
+    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: bowTie
+      value: 
+      objectReference: {fileID: 1455194416}
+    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: healthImg
+      value: 
+      objectReference: {fileID: 968506797}
     - target: {fileID: 915882033761489363, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: m_Name
       value: Player
