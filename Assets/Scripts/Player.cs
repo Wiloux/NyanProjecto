@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     private Camera cam;
     public Image healthImg;
     public GameObject bowTie;
+    public Image bowTieCD;
 
     [Header("Audio")]
     [Space(20)]
@@ -93,10 +94,14 @@ public class Player : MonoBehaviour
     {
         healthImg.fillAmount = health / maxHealth;
 
+        if (bowTie.gameObject.activeSelf)
+        {
+            bowTieCD.fillAmount = spearCooldown / spearCooldownDuration;
+        }
+
         if (!GameHandler.isPaused)
         {
             spear.hackPanel.SetActive(spear.linkedToBoss);
-            bowTie.SetActive(!spear.linkedToBoss);
 
             if (GameHandler.enableControls && !Staggered)
             {
@@ -242,6 +247,7 @@ public class Player : MonoBehaviour
     private void LaunchSpear(Vector3 direction)
     {
         spearCooldown = spearCooldownDuration;
+        bowTie.SetActive(false);
         spear.transform.position = transform.position;
         spear.gameObject.SetActive(true);
         spear.ResetForLaunch();
@@ -252,6 +258,8 @@ public class Player : MonoBehaviour
 
     private void DashToSpear(System.Action onDashFinished)
     {
+        bowTie.SetActive(true);
+
         GetInvulnerability(dashToSpearDuration);
         StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => { spear.DisableSpear(); onDashFinished?.Invoke(); }));
 
