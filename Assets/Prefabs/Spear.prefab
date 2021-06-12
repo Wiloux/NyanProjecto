@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collider: {fileID: 3980216695682157421}
   timeWithoutCollider: 0.1
+  stopping: 0
   linkedToBoss: 0
   link: {fileID: 2293525125221917064}
 --- !u!54 &3980216695428577408
@@ -85,7 +86,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  - {fileID: 2100000, guid: 043526e4334af99409981d22b2447842, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -129,8 +130,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 0.78431374}
-      key1: {r: 1, g: 0, b: 0, a: 1}
+      key0: {r: 1, g: 1, b: 1, a: 0.78431374}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0.78431374}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -224,7 +225,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 732e0008467b2b84db6171af532d1d6c, type: 2}
+  - {fileID: 2100000, guid: bd35b338147b109428d25f3d4a2cff8a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
