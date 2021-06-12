@@ -50,6 +50,8 @@ public class Boss : MonoBehaviour
     public Coroutine SalivaAttackCoro;
     public Coroutine PawsAttackCoro;
     public Coroutine LaserAttackCoro;
+
+    public Animator bossAnim;
     void Start()
     {
         currentState = bossStates.Stage1;
@@ -80,6 +82,10 @@ public class Boss : MonoBehaviour
                 waitForAttackTimerDur = Random.Range(waitForAttackTimerDurMin, waitForAttackTimerDurMax);
                 waitForAttackTimer = waitForAttackTimerDur;
             }
+        }
+        else
+        {
+            transform.Translate(Vector3.down * Time.deltaTime, Space.World);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -293,10 +299,13 @@ public class Boss : MonoBehaviour
 
     public void DealDmg(float dmg)
     {
+        bossAnim.SetTrigger("hit");
         currentHealth = currentHealth - dmg;
         if (currentHealth / maxHealth <= 0.00f)
         {
             currentState = bossStates.Dead;
+            bossAnim.SetBool("dead", true);
+
             if (laserGameObject.activeInHierarchy)
             {
                 laserGameObject.SetActive(false);
