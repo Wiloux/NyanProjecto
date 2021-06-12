@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float verticalMouseSensivity;
 
     [SerializeField] private Animator animator;
+
 
     bool movingToSpear;
 
