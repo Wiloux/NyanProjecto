@@ -51,7 +51,10 @@ public class Saliva : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().DealDamage(damage, true);
+            Vector3 staggerDir = other.bounds.center - transform.position;
+            staggerDir.y = 0;
+
+            other.GetComponent<Player>().DealDamage(damage, staggerDir);
         }
     }
 
