@@ -10,11 +10,9 @@ public class HackPanel : MonoBehaviour
 
     void Start()
     {
-        int children = transform.childCount;
-        for (int i = 0; i < children; ++i)
-            pos.Add(transform.GetChild(i).GetComponent<RectTransform>().transform.position);
-
-        StartCoroutine(StartLoop());
+        //int children = transform.childCount;
+        //for (int i = 0; i < children; ++i)
+        //    pos.Add(transform.GetChild(i).GetComponent<RectTransform>().transform.position);
     }
 
     // Update is called once per frame
@@ -23,7 +21,17 @@ public class HackPanel : MonoBehaviour
         
     }
 
-    IEnumerator StartLoop()
+    private void OnEnable()
+    {
+        StartCoroutine(StartLoop());
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(StartLoop());
+    }
+
+    public IEnumerator StartLoop()
     {
             int children = transform.childCount;
         while (true)

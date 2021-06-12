@@ -70,12 +70,16 @@ public class Player : MonoBehaviour
     {
         if (!GameHandler.isPaused)
         {
+                spear.hackPanel.SetActive(spear.linkedToBoss);
+
+
             if (GameHandler.enableControls && !Staggered)
             {
                 bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
 
                 if (Input.GetKeyDown(KeyCode.E) && spear.gameObject.activeSelf && spear.stopping)
                 {
+
                     // Dash to spear
                     DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
                 }

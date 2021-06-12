@@ -10,6 +10,8 @@ public class Spear : MonoBehaviour
     [HideInInspector] public bool stopping;
     Quaternion finalRot;
 
+    public GameObject hackPanel;
+
     [HideInInspector] public bool linkedToBoss = false;
 
     [SerializeField] private LineRenderer link;
@@ -39,6 +41,8 @@ public class Spear : MonoBehaviour
                 UpdateLink();
             }
         }
+
+       
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: []
-  spd: 2
+  spd: 0.7
 --- !u!1 &7558951833098588680
 GameObject:
   m_ObjectHideFlags: 0
