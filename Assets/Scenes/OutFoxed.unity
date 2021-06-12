@@ -1766,36 +1766,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1377495548
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1377495549}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1377495549
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1377495548}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.011209518, y: 0.39362094, z: -1.067315}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1428202323
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,10 +2475,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2147773438995841703, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3980216695428577434, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
       propertyPath: m_Name
       value: Spear
@@ -2561,10 +2527,6 @@ PrefabInstance:
       propertyPath: hackPanel
       value: 
       objectReference: {fileID: 1210264414}
-    - target: {fileID: 3980216695428577439, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
-      propertyPath: flyingAudio.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a22af04c92db1664baca5c28e5104cf2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7990407205cda064b85acbc7aeb24183, type: 3}
 --- !u!1001 &5244191928302066259

@@ -53,6 +53,15 @@ MonoBehaviour:
   hackPanel: {fileID: 0}
   linkedToBoss: 0
   link: {fileID: 2293525125221917064}
+  flyingAudio:
+    clip: {fileID: 8300000, guid: a22af04c92db1664baca5c28e5104cf2, type: 3}
+    volume: 1
+  plantingAudio:
+    clip: {fileID: 0}
+    volume: 1
+  touchingBossAudio:
+    clip: {fileID: 0}
+    volume: 1
 --- !u!54 &3980216695428577408
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -223,7 +232,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
