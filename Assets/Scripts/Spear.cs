@@ -61,8 +61,7 @@ public class Spear : MonoBehaviour
             if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
-                ClipVolume startLinkClipVolume = playerscript.startLink.PickRandomClipVolume();
-                playerscript.mainAudioSource.PlayOneShot(startLinkClipVolume.clip, startLinkClipVolume.volume);
+                playerscript.startLink.Play(playerscript.mainAudioSource);
                 SetLink();
                 touchingBossAudio.Play(audioSource);
                 VoicelinesManager.onBossLinked?.Invoke();

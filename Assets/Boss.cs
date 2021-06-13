@@ -315,8 +315,8 @@ public class Boss : MonoBehaviour
 
         currentState = bossStates.Growing;
         protectionDome.SetActive(true);
-        mainSource.PlayOneShot(headGrowing.clip, headGrowing.volume);
-        mainSource.PlayOneShot(endPhase[number + 1].clip, endPhase[number + 1].volume);
+        headGrowing.Play(mainSource);
+        endPhase[number + 1].Play(mainSource);
 
         FindObjectOfType<Spear>().DisableSpear();
 
@@ -332,7 +332,7 @@ public class Boss : MonoBehaviour
             t += Time.deltaTime * growthSpd;
             yield return new WaitForEndOfFrame();
         }
-        mainSource.PlayOneShot(startPhase.clip, startPhase.volume);
+        startPhase.Play(mainSource);
         yield return new WaitForSeconds(0.5f);
 
 

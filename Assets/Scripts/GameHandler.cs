@@ -45,6 +45,7 @@ public class GameHandler : MonoBehaviour
 
     public ClipVolume PickRandomClipVolume()
     {
+        if(clipsVolumes.Length == 0) return null;
         return clipsVolumes[UnityEngine.Random.Range(0, clipsVolumes.Length)];
     }
 
