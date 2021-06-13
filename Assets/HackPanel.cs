@@ -7,6 +7,7 @@ public class HackPanel : MonoBehaviour
     // Start is called before the first frame update
     public List<Vector3> pos = new List<Vector3>();
     public float spd;
+    public bool firstime;
 
     public AudioSource _AudioSource;
 
@@ -27,6 +28,7 @@ public class HackPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        firstime = true;
         StartCoroutine(StartLoop());
     }
 
@@ -41,9 +43,15 @@ public class HackPanel : MonoBehaviour
         while (true)
         {
             int uiId = Random.Range(0, UIClips.Count);
+            if (!firstime)
+            {
+                _AudioSource.PlayOneShot(UIClips[uiId].clip, UIClips[uiId].volume);
+            }
+            else
+            {
+                firstime = false;
 
-            _AudioSource.PlayOneShot(UIClips[uiId].clip, UIClips[uiId].volume);
-
+            }
 
             for (int i = 0; i < children; ++i)
             {
@@ -57,7 +65,17 @@ public class HackPanel : MonoBehaviour
                     transform.GetChild(i).gameObject.SetActive(true);
                 }
             }
-            yield return new WaitForSeconds(UIClips[uiId].clip.length);
+
+            if (firstime)
+            {
+                yield return new WaitForSeconds(1f);
+
+            }
+            else
+            {
+
+                yield return new WaitForSeconds(UIClips[uiId].clip.length);
+            }
 
             yield return new WaitForSeconds(spd);
         }
