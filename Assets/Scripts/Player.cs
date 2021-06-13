@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
 
         if (bowTie.gameObject.activeSelf)
         {
-            bowTieCD.fillAmount = spearCooldown / spearCooldownDuration;
+            bowTieCD.fillAmount = 1 - (spearCooldown / spearCooldownDuration);
         }
         if (KeyInput.GetPauseKeyDown())
         {
