@@ -511,7 +511,7 @@ MonoBehaviour:
   - {fileID: 3715492868127543816}
   - {fileID: 2473794919821116975}
   - {fileID: 9087248449563754401}
-  lookSpd: 25
+  lookSpd: 50
   player: {fileID: 0}
   currentHealth: 12
   maxHealth: 60
@@ -543,6 +543,22 @@ MonoBehaviour:
     volume: 0.07
   - clip: {fileID: 8300000, guid: 13d09bc9890f2e64c8a28d31315eb586, type: 3}
     volume: 0.07
+  hurt:
+    clip: {fileID: 0}
+    volume: 1
+  startPhase:
+    clip: {fileID: 0}
+    volume: 1
+  headGrowing:
+    clip: {fileID: 0}
+    volume: 1
+  endPhase:
+  - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
+    volume: 0.479
+  - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
+    volume: 0.479
+  - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
+    volume: 0.479
   mainSource: {fileID: 5685767886973498570}
   musicSource: {fileID: 3023236853049219874}
   Trophee: {fileID: 0}
@@ -561,7 +577,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.063
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -976,7 +992,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6409160603963583208
 Transform:
   m_ObjectHideFlags: 0
