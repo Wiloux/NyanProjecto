@@ -316,7 +316,7 @@ public class Boss : MonoBehaviour
         currentState = bossStates.Growing;
         protectionDome.SetActive(true);
         headGrowing.Play(mainSource);
-        endPhase[number + 1].Play(mainSource);
+        endPhase[number - 1].Play(mainSource);
 
         FindObjectOfType<Spear>().DisableSpear();
 
