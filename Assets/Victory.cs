@@ -27,5 +27,6 @@ public class Victory : MonoBehaviour
         EndingUI.SetActive(true);
         yield return new WaitForSeconds(10f);
         SceneManager.LoadScene(sceneID);
+        Cursor.lockState = CursorLockMode.None;
     }
 }
