@@ -53,6 +53,11 @@ public class Boss : MonoBehaviour
 
     public List<ClipVolume> musics = new List<ClipVolume>();
 
+    public ClipVolume hurt;
+    public ClipVolume startPhase;
+    public ClipVolume headGrowing;
+    public List<ClipVolume> endPhase = new List<ClipVolume>();
+
     public AudioSource mainSource;
     public AudioSource musicSource;
     void Start()
@@ -277,6 +282,7 @@ public class Boss : MonoBehaviour
     {
         if (!Invulnerable)
         {
+            mainSource.PlayOneShot(hurt.clip, hurt.volume);
             bossAnim.SetTrigger("hit");
             currentHealth = currentHealth - dmg;
             if (currentHealth / maxHealth <= 0.00f)
@@ -299,7 +305,7 @@ public class Boss : MonoBehaviour
 
     }
 
-  
+
     public float growthSpd;
     public GameObject protectionDome;
     public bool Invulnerable;
@@ -309,6 +315,11 @@ public class Boss : MonoBehaviour
 
         currentState = bossStates.Growing;
         protectionDome.SetActive(true);
+        mainSource.PlayOneShot(headGrowing.clip, headGrowing.volume);
+        mainSource.PlayOneShot(endPhase[number + 1].clip, endPhase[number + 1].volume);
+
+        FindObjectOfType<Spear>().DisableSpear();
+
 
         musicSource.Stop();
 
@@ -321,6 +332,9 @@ public class Boss : MonoBehaviour
             t += Time.deltaTime * growthSpd;
             yield return new WaitForEndOfFrame();
         }
+        mainSource.PlayOneShot(startPhase.clip, startPhase.volume);
+        yield return new WaitForSeconds(0.5f);
+
 
         if (number == 2)
         {
