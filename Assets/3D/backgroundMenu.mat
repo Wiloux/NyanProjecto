@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: backgroundMenu
-  m_Shader: {fileID: -6465566751694194690, guid: de5fb70c070a1bc47a7204c193a1d876, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: a97fb25d275636844a3a50f52cf75381, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -33,7 +33,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_23e3bb4b516d4fc1b5287b4f94e3e192:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_60e26b501cbb4ca2a85bb5afd7ff55ee:
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_98823a16f358429db093ae14d1926a48:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: cb27a9d8ec0111a44b3cde279d9ddf9c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -130,7 +130,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_cb1d6045623f4ba5b4dae3a78de332ef: {r: 1, g: 1, b: 1, a: 0}
-    - Vector2_aa8a9fadb3834ec09360b7de2035bd69: {r: 1, g: 0, b: 0, a: 0}
+    - Vector2_aa8a9fadb3834ec09360b7de2035bd69: {r: 0, g: 0.32, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

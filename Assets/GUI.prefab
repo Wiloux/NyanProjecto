@@ -1521,12 +1521,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: []
-  spd: 0.7
+  spd: 1.2
   _AudioSource: {fileID: 0}
   UIClips:
-  - clip: {fileID: 8300000, guid: a1543074618c4d24caf2266985c3a069, type: 3}
+  - clip: {fileID: 8300000, guid: 6a8b7d253b98c3644833c3e1f54431b1, type: 3}
     volume: 0.323
+  - clip: {fileID: 8300000, guid: b37743afb7618384eb685e35a952bec4, type: 3}
+    volume: 0.327
+  - clip: {fileID: 8300000, guid: 51462a07a6f3bdd488bd93bc525f9b15, type: 3}
+    volume: 0.327
+  - clip: {fileID: 8300000, guid: 94784e2529dcf8b4d9a8495740046b3e, type: 3}
+    volume: 0.327
+  - clip: {fileID: 8300000, guid: 57bbbcb06cdad6b4fb6ff5e9f045cb4f, type: 3}
+    volume: 0.327
+  - clip: {fileID: 8300000, guid: c7a6bf1d5339a534282e7fdde39e3a6a, type: 3}
+    volume: 0.327
+  - clip: {fileID: 8300000, guid: 263da5b7a983be14bb67e568de7cfec7, type: 3}
+    volume: 0.327
+  - clip: {fileID: 8300000, guid: 8b2391bdea2c98742a4b45cc7a4452d4, type: 3}
+    volume: 0.327
   - clip: {fileID: 8300000, guid: 5897c7d0dd82b704fbcf4c7de3940ccb, type: 3}
+    volume: 0.327
+  - clip: {fileID: 8300000, guid: 3e590ba1d700a674a8b0f87201ee1d49, type: 3}
     volume: 0.327
 --- !u!1 &5667725211855785090
 GameObject:
