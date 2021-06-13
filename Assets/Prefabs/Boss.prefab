@@ -537,12 +537,12 @@ MonoBehaviour:
   waitForAttackTimer: 0
   bossAnim: {fileID: 1708999574527958223}
   musics:
-  - clip: {fileID: 8300000, guid: 643a7be50e5e9e4419e387ec8e63f440, type: 3}
-    volume: 0.07
-  - clip: {fileID: 8300000, guid: fe78c24a76837d84caf38680c7cfd11c, type: 3}
-    volume: 0.07
-  - clip: {fileID: 8300000, guid: 13d09bc9890f2e64c8a28d31315eb586, type: 3}
-    volume: 0.07
+  - clip: {fileID: 8300000, guid: eaeaeb89893445344bc7d97b5752ef27, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 7be7cd8a90053b642935d5ae9937beed, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 5a1934d590bb645448121ef078411219, type: 3}
+    volume: 1
   hurt:
     clip: {fileID: 8300000, guid: 0768d292cfd7da04baf410bb9808a1e1, type: 3}
     volume: 0.05
@@ -577,9 +577,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.063
+  m_Volume: 0.311
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
