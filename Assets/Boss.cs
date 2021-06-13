@@ -15,7 +15,7 @@ public class Boss : MonoBehaviour
     public bool isDamageable;
     public float damageOnCollision = 20f;
 
-    public enum bossStates { Stage1, Stage2, Stage3, Dead }
+    public enum bossStates { Stage1, Stage2, Stage3, Dead, Growing }
     [Header("States")]
     public bossStates currentState;
 
@@ -63,7 +63,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentState != bossStates.Dead)
+        if (currentState != bossStates.Dead && currentState != bossStates.Growing)
         {
             if (PawsAttackCoro == null)
                 BodyLooksAtPlayer();
@@ -80,7 +80,7 @@ public class Boss : MonoBehaviour
                 waitForAttackTimer = waitForAttackTimerDur;
             }
         }
-        else
+        else if (currentState != bossStates.Growing)
         {
             transform.Translate(Vector3.down * Time.deltaTime, Space.World);
         }
@@ -268,35 +268,61 @@ public class Boss : MonoBehaviour
 
     public void DealDmg(float dmg)
     {
-        bossAnim.SetTrigger("hit");
-        currentHealth = currentHealth - dmg;
-        if (currentHealth / maxHealth <= 0.00f)
+        if (!Invulnerable)
         {
-            currentState = bossStates.Dead;
-            bossAnim.SetBool("dead", true);
-            Trophee.SetActive(true);
-        }
-        else if (currentHealth / maxHealth <= 0.33f)
-        {
-            heads[2].gameObject.SetActive(true);
-            currentState = bossStates.Stage3;
-            //foreach (AcidPond acid in acidPonds)
-            //{
-            //    Destroy(acid.gameObject);
-            //}
-            //acidPonds.Clear();
-        }
-        else if (currentHealth / maxHealth <= 0.66f)
-        {
-            heads[1].gameObject.SetActive(true);
-            //foreach (AcidPond acid in acidPonds)
-            //{
-            //    Destroy(acid.gameObject);
-            //}
-            //acidPonds.Clear();
-            currentState = bossStates.Stage2;
+            bossAnim.SetTrigger("hit");
+            currentHealth = currentHealth - dmg;
+            if (currentHealth / maxHealth <= 0.00f)
+            {
+                currentState = bossStates.Dead;
+                bossAnim.SetBool("dead", true);
+                Trophee.SetActive(true);
+            }
+            else if (currentHealth / maxHealth <= 0.33f && currentState != bossStates.Stage3)
+            {
+
+                StartCoroutine(growHead(2));
+                //foreach (AcidPond acid in acidPonds)
+                //{
+                //    Destroy(acid.gameObject);
+                //}
+                //acidPonds.Clear();
+            }
+            else if (currentHealth / maxHealth <= 0.66f && currentState != bossStates.Stage2)
+            {
+                StartCoroutine(growHead(1));
+            }
         }
 
+    }
+
+    public float growthSpd;
+    public GameObject protectionDome;
+    public bool Invulnerable;
+
+    IEnumerator growHead(int number)
+    {
+
+        currentState = bossStates.Growing;
+        protectionDome.SetActive(true);
+        float t = 0;
+        while (t <= 1)
+        {
+            heads[number].transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, t);
+            Debug.Log(heads[number].transform.localScale);
+            t += Time.deltaTime * growthSpd;
+            yield return new WaitForEndOfFrame();
+        }
+
+        if (number == 2)
+        {
+            currentState = bossStates.Stage3;
+        }
+        else
+        {
+            currentState = bossStates.Stage2;
+        }
+        protectionDome.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()

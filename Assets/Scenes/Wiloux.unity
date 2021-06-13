@@ -433,11 +433,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 422369237786742699, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7601150230084327123, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302776, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_Name
@@ -451,6 +451,10 @@ PrefabInstance:
       propertyPath: Trophee
       value: 
       objectReference: {fileID: 1661128073}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: lookSpd
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302781, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_RootOrder
       value: 2
