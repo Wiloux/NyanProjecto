@@ -111,6 +111,9 @@ public class Player : MonoBehaviour
 
         if (!GameHandler.isPaused)
         {
+
+            // Animator
+            animator.SetBool("Spear", !spear.linkedToBoss);
             spear.hackPanel.SetActive(spear.linkedToBoss);
 
             if (GameHandler.enableControls && !Staggered)
@@ -156,13 +159,13 @@ public class Player : MonoBehaviour
 
                                 nextTimeToFire = Time.time + 1 / gunFireRate;
                                 // Shoot
+                                animator.SetTrigger("Shoot");
                                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                                 bullet.movement = cam.transform.forward * bulletSpeed;
                             }
                         }
                         else if (KeyInput.GetFireKeyUp())
                         {
-                            Debug.Log("tu fous quoi");
                             gunShooting = false;
                             stopShootingAudio.Play(mainAudioSource, false, true);
                         }
@@ -183,8 +186,6 @@ public class Player : MonoBehaviour
                     }
                     #endregion
 
-                    // Animator
-                    animator.SetBool("Spear", !spearLinkedToTheBoss);
                     // Make the player look in the direction of the cam
                     if (controller.camPivot.transform.forward != transform.forward)
                     {
@@ -265,6 +266,7 @@ public class Player : MonoBehaviour
     #region Spear Functions
     private void LaunchSpear(Vector3 direction)
     {
+        animator.SetBool("Aim", false);
         spearCooldown = spearCooldownDuration;
         bowTie.SetActive(false);
         spear.transform.position = transform.position;
@@ -272,7 +274,6 @@ public class Player : MonoBehaviour
         spear.ResetForLaunch();
         spearRigidbody.AddForce(direction * spearLaunchForce);
 
-        animator.SetTrigger("Fire");
         spearThrowAudio.Play(mainAudioSource);
     }
 
@@ -318,7 +319,8 @@ public class Player : MonoBehaviour
             dead = true;
             controller.rb.velocity = new Vector3(0, controller.rb.velocity.y, 0);
             UnZoomCam();
-            animator.SetTrigger("Dead");
+            animator.SetBool("Dead", true);
+            animator.SetTrigger("Death");
             //GameHandler.SetPause(true);
             GameHandler.enableControls = false;
             GameHandler.instance.WaitForInput(2f, () =>
