@@ -545,10 +545,10 @@ MonoBehaviour:
     volume: 0.07
   hurt:
     clip: {fileID: 8300000, guid: 0768d292cfd7da04baf410bb9808a1e1, type: 3}
-    volume: 0.5
+    volume: 0.05
   startPhase:
     clip: {fileID: 8300000, guid: 08505319abd1c3e4db05fc8cf68bd340, type: 3}
-    volume: 1
+    volume: 0.27
   headGrowing:
     clip: {fileID: 0}
     volume: 1
