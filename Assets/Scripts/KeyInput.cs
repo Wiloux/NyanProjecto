@@ -21,6 +21,15 @@ public static class KeyInput
     }
     #endregion
 
+    #region Escape
+    static KeyCode[] pauseKeyCodes = new KeyCode[2] { KeyCode.Escape, KeyCode.JoystickButton9 };
+
+    public static bool GetPauseKeyDown()
+    {
+        return Input.GetKeyDown(pauseKeyCodes[0]) || Input.GetKeyDown(pauseKeyCodes[1]);
+    }
+    #endregion
+
     #region Dash to spear keys
     static KeyCode[] dashKeys = new KeyCode[2] { KeyCode.E, KeyCode.JoystickButton5 };
 

@@ -299,6 +299,7 @@ public class Boss : MonoBehaviour
 
     }
 
+  
     public float growthSpd;
     public GameObject protectionDome;
     public bool Invulnerable;
@@ -308,7 +309,7 @@ public class Boss : MonoBehaviour
 
         currentState = bossStates.Growing;
         protectionDome.SetActive(true);
-        
+
         musicSource.Stop();
 
 

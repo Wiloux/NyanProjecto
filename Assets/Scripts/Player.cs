@@ -76,13 +76,27 @@ public class Player : MonoBehaviour
     [Header("Movement sounds")]
     [SerializeField] private ClipVolume stepAudio;
 
+    public GameObject pausePanel;
+
+    public void unPausePause(GameObject pausePanel)
+    {
+        pausePanel.SetActive(!pausePanel.activeSelf);
+        GameHandler.isPaused = !GameHandler.isPaused;
+
+        Cursor.lockState = GameHandler.isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = GameHandler.isPaused ? true : false;
+        Time.timeScale = GameHandler.isPaused ? 0 : 1;
+
+    }
 
     public Victory vic;
     // Start is called before the first frame update
     void Start()
     {
+        pausePanel.SetActive(false);
         health = maxHealth;
 
+        Cursor.visible = false;
         spear.playerscript = this;
 
         controller = GetComponent<PlayerController>();
@@ -93,6 +107,8 @@ public class Player : MonoBehaviour
 
         vic = FindObjectOfType<Victory>();
         vic.gameObject.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
 
         spearRigidbody = spear.GetComponent<Rigidbody>();
 
@@ -108,10 +124,13 @@ public class Player : MonoBehaviour
         {
             bowTieCD.fillAmount = spearCooldown / spearCooldownDuration;
         }
+        if (KeyInput.GetPauseKeyDown())
+        {
+            unPausePause(pausePanel);
+        }
 
         if (!GameHandler.isPaused)
         {
-
             // Animator
             animator.SetBool("Spear", !spear.linkedToBoss);
             spear.hackPanel.SetActive(spear.linkedToBoss);
@@ -239,11 +258,6 @@ public class Player : MonoBehaviour
 
             if (invulnerabilityTimer > 0) invulnerabilityTimer -= Time.deltaTime;
             if (spearCooldown > 0) spearCooldown -= Time.deltaTime;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
         }
 
         Debug.DrawRay(cam.transform.position, cam.transform.forward * 3, Color.red);
