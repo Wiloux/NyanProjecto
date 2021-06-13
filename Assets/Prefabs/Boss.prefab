@@ -554,11 +554,11 @@ MonoBehaviour:
     volume: 1
   endPhase:
   - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
-    volume: 0.479
+    volume: 0.184
   - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
-    volume: 0.479
+    volume: 0.207
   - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
-    volume: 0.479
+    volume: 0.238
   mainSource: {fileID: 5685767886973498570}
   musicSource: {fileID: 3023236853049219874}
   Trophee: {fileID: 0}
