@@ -44,7 +44,7 @@ public class Spear : MonoBehaviour
         if (stopping)
         {
             transform.rotation = finalRot;
-            UpdateLink();
+            if(linkedToBoss) UpdateLink();
         }
 
 
@@ -59,6 +59,7 @@ public class Spear : MonoBehaviour
             if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
+                SetLink();
                 touchingBossAudio.Play(audioSource);
             }
             else if (collision.transform.GetComponent<Victory>())
@@ -73,7 +74,6 @@ public class Spear : MonoBehaviour
             stopping = true;
             finalRot = transform.rotation;
             Invoke(nameof(StopMovement), timeWithoutCollider);
-            SetLink();
         }
     }
 
