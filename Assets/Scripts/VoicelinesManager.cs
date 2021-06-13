@@ -19,6 +19,9 @@ public class VoicelinesManager : MonoBehaviour
     public static Action onHittingBoss;
     public Voicelines onHittingBossVoicelines;
 
+    public static Action onBossNewPhase;
+    public Voicelines onBossNewPhaseVoicelines;
+
     public static Action onBossKilled;
     public Voicelines onBossKilledVoicelines;
 
@@ -29,8 +32,9 @@ public class VoicelinesManager : MonoBehaviour
     {
         onBossLinked = () => PlayVoicelineIfNeeded(onBossLinkedVoicelines);
         onHittingBoss = () => PlayVoicelineIfNeeded(onHittingBossVoicelines);
-        onBossKilled = () => PlayVoicelineIfNeeded(onBossKilledVoicelines);
-        onVictory = () => PlayVoicelineIfNeeded(onVictoryVoicelines);
+        onBossNewPhase = () => ForceVoicelinePlay(onBossNewPhaseVoicelines);
+        onBossKilled = () => ForceVoicelinePlay(onBossKilledVoicelines);
+        onVictory = () => ForceVoicelinePlay(onVictoryVoicelines);
     }
 
     // Update is called once per frame
@@ -49,6 +53,17 @@ public class VoicelinesManager : MonoBehaviour
         if (voicelines.HasCoolDown && HasGeneralCooldown)
         {
             voicelines.clipsVolumes.Play(generalAudioSource);
+            voicelines.ResetCooldown();
+            generalCooldown = generalCooldownDuration;
+        }
+    }
+
+    private void ForceVoicelinePlay(Voicelines voicelines)
+    {
+        if (voicelines.HasCoolDown)
+        {
+            voicelines.clipsVolumes.Play(generalAudioSource);
+            voicelines.ResetCooldown();
         }
     }
 }
