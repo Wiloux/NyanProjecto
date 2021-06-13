@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: Invulnerable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: endPhase.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302781, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_RootOrder
       value: 2
