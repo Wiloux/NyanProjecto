@@ -23,7 +23,6 @@ public class Bullet : MonoBehaviour
     {
         if (!other.isTrigger)
         {
-
             if (other.CompareTag("Boss"))
             {
                 GameObject _splash = Instantiate(splash, transform.position, Quaternion.identity);
@@ -34,6 +33,8 @@ public class Bullet : MonoBehaviour
 
                 if (boss != null) boss.DealDmg(damage);
                 //Debug.Log("damage");
+
+                VoicelinesManager.onHittingBoss?.Invoke();
             }
 
             if (!other.CompareTag("Player"))

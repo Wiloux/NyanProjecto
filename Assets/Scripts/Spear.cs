@@ -13,10 +13,12 @@ public class Spear : MonoBehaviour
     public GameObject hackPanel;
 
     [HideInInspector] public bool linkedToBoss = false;
+    private bool linkedToTrophy;
 
     public Player playerscript;
 
     [SerializeField] private LineRenderer link;
+    private Transform linkedObject;
 
     private Transform playerHeart;
     private Transform bossHeart;
@@ -46,10 +48,8 @@ public class Spear : MonoBehaviour
         if (stopping)
         {
             transform.rotation = finalRot;
-            if(linkedToBoss) UpdateLink();
+            if(linkedToBoss || linkedToTrophy) UpdateLink();
         }
-
-
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -68,6 +68,9 @@ public class Spear : MonoBehaviour
             else if (collision.transform.GetComponent<Victory>())
             {
                 collision.transform.GetComponent<Victory>().StartEnding();
+                linkedObject = collision.transform;
+                linkedToTrophy = true;
+                SetLink();
                 touchingBossAudio.Play(audioSource);
             }
             else plantingAudio.Play(audioSource);
@@ -126,7 +129,7 @@ public class Spear : MonoBehaviour
     }
     private void UpdateLink()
     {
-        link.SetPosition(0, linkedToBoss ? bossHeart.position : transform.position);
+        link.SetPosition(0, linkedToBoss ? bossHeart.position : linkedObject.position);
         link.SetPosition(1, playerHeart.position);
     }
 }
