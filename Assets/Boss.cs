@@ -332,11 +332,11 @@ public class Boss : MonoBehaviour
             heads[number].transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, t);
             Debug.Log(heads[number].transform.localScale);
 
-            if(t > 0.5f)VoicelinesManager.onBossNewPhase?.Invoke();
 
             t += Time.deltaTime * growthSpd;
             yield return new WaitForEndOfFrame();
         }
+        VoicelinesManager.onBossNewPhase?.Invoke();
         startPhase.Play(mainSource);
         yield return new WaitForSeconds(0.5f);
 

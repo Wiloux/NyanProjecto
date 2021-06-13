@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
                     // Dash to spear
                     teleport.Play(mainAudioSource);
                     breakLink.Play(mainAudioSource);
-                    DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
+                    DashToSpear(() => { GetInvulnerability(tpInvulnerabilityDuration); VoicelinesManager.onTp?.Invoke(); });
                 }
 
                 #region Zoom

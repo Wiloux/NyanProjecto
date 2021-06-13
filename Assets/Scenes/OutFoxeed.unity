@@ -2100,6 +2100,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761962082}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &795442751 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1216184737790528281, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+  m_PrefabInstance: {fileID: 915882032500134905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &823462850 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 377835631865979511, guid: 6db1d89ec56e21e4f8448b558ea1b655, type: 3}
@@ -4250,6 +4255,10 @@ PrefabInstance:
       propertyPath: bowTie
       value: 
       objectReference: {fileID: 482432644}
+    - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 795442751}
     - target: {fileID: 915882033761489352, guid: bf3b459f96376bb48ae4815daeba12f0, type: 3}
       propertyPath: bowTieCD
       value: 

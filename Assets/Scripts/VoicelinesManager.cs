@@ -13,6 +13,9 @@ public class VoicelinesManager : MonoBehaviour
 
     [Space(20)]
     [Header("Voicelines")]
+    public static Action onTp;
+    public Voicelines onTpVoicelines;
+
     public static Action onBossLinked;
     public Voicelines onBossLinkedVoicelines;
 
@@ -30,6 +33,7 @@ public class VoicelinesManager : MonoBehaviour
 
     private void Awake()
     {
+        onTp = () => PlayVoicelineIfNeeded(onTpVoicelines); 
         onBossLinked = () => PlayVoicelineIfNeeded(onBossLinkedVoicelines);
         onHittingBoss = () => PlayVoicelineIfNeeded(onHittingBossVoicelines);
         onBossNewPhase = () => ForceVoicelinePlay(onBossNewPhaseVoicelines);
@@ -42,8 +46,10 @@ public class VoicelinesManager : MonoBehaviour
     {
         if (!HasGeneralCooldown) generalCooldown -= Time.deltaTime;
 
+        onTpVoicelines.ReduceCooldown();
         onBossLinkedVoicelines.ReduceCooldown();
         onHittingBossVoicelines.ReduceCooldown();
+        onBossNewPhaseVoicelines.ReduceCooldown();
         onBossKilledVoicelines.ReduceCooldown();
         onVictoryVoicelines.ReduceCooldown();
     }

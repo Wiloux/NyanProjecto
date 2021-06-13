@@ -59,6 +59,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generalAudioSource: {fileID: 2087189562546668216}
   generalCooldownDuration: 3
+  onTpVoicelines:
+    clipsVolumes:
+      clipsVolumes:
+      - clip: {fileID: 8300000, guid: fa7fc71fbbef6d24ca44c2a41a5b0cd0, type: 3}
+        volume: 0.4
+      - clip: {fileID: 8300000, guid: 2f0f2c81aacc9df45a47bde32be34939, type: 3}
+        volume: 0.4
+      - clip: {fileID: 8300000, guid: 7b84c3626415aed4b831ec5b243ca43f, type: 3}
+        volume: 0.4
+    cooldownDuration: 10
   onBossLinkedVoicelines:
     clipsVolumes:
       clipsVolumes:
