@@ -44,14 +44,35 @@ public class GameHandler : MonoBehaviour
     public AudioClip clip;
     [Range(0,1)] public float volume = 1f;
 
-    public void Play(AudioSource audioSource, bool looping = false)
+    public void Play(AudioSource audioSource, bool looping = false, bool stopping = false, bool debug = false)
     {
-        if (clip == null || audioSource == null) return;
+        if (clip == null || audioSource == null)
+        {
+            if(debug) Debug.Log("<color=red>Audio Source or Audio Clip was null</color>");
+            return;
+        }
 
-        if (audioSource.isPlaying) audioSource.Stop();
+        //if (audioSource.isPlaying) audioSource.Stop();
+        if (stopping)
+        {
+            if(debug) Debug.Log("stopping");
+            audioSource.Stop();
+            audioSource.volume = 1f;
+        }
+
         audioSource.loop = looping;
-        audioSource.clip = clip;
-        audioSource.volume = volume;
-        audioSource.Play();
+        if (looping)
+        {
+            if(debug) Debug.Log("Normal play");
+            if (audioSource.isPlaying) audioSource.Stop();
+            audioSource.clip = clip;
+            audioSource.volume = volume;
+            audioSource.Play();
+        }
+        else
+        {
+            if(debug) Debug.Log("Onsehot play");
+            audioSource.PlayOneShot(clip, volume);
+        }
     }
 }

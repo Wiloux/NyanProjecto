@@ -143,7 +143,11 @@ public class Player : MonoBehaviour
                     #region Launch speat / shoot with gun
                     if (spearLinkedToTheBoss)
                     {
-                        if (KeyInput.GetFireKey())
+                        if (KeyInput.GetFireKeyDown())
+                        {
+                            shootingAudio.Play(mainAudioSource, true);
+                        }
+                        else if (KeyInput.GetFireKey())
                         {
                             // Guns
                             if (Time.time >= nextTimeToFire)
@@ -154,13 +158,13 @@ public class Player : MonoBehaviour
                                 // Shoot
                                 Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
                                 bullet.movement = cam.transform.forward * bulletSpeed;
-                                shootingAudio.Play(mainAudioSource);
                             }
                         }
                         else if (KeyInput.GetFireKeyUp())
                         {
+                            Debug.Log("tu fous quoi");
                             gunShooting = false;
-                            stopShootingAudio.Play(mainAudioSource);
+                            stopShootingAudio.Play(mainAudioSource, false, true);
                         }
                     }
                     else
@@ -192,7 +196,7 @@ public class Player : MonoBehaviour
                     if (gunShooting)
                     {
                         gunShooting = false;
-                        stopShootingAudio.Play(mainAudioSource);
+                        stopShootingAudio.Play(mainAudioSource, false, true);
                     }
 
                     // End Zoom
@@ -268,6 +272,7 @@ public class Player : MonoBehaviour
         spear.ResetForLaunch();
         spearRigidbody.AddForce(direction * spearLaunchForce);
 
+        animator.SetTrigger("Fire");
         spearThrowAudio.Play(mainAudioSource);
     }
 
