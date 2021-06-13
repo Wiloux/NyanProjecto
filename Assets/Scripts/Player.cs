@@ -143,10 +143,8 @@ public class Player : MonoBehaviour
                 if (KeyInput.GetDashKeyDown() && spear.gameObject.activeSelf && !vic.hasEnded)
                 {
                     // Dash to spear
-                    ClipVolume teleportClipVolume = teleport.PickRandomClipVolume();
-                    ClipVolume breakLinkClipVolume = breakLink.PickRandomClipVolume();
-                    mainAudioSource.PlayOneShot(teleportClipVolume.clip, teleportClipVolume.volume);
-                    mainAudioSource.PlayOneShot(breakLinkClipVolume.clip, breakLinkClipVolume.volume);
+                    teleport.Play(mainAudioSource);
+                    breakLink.Play(mainAudioSource);
                     DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
                 }
 

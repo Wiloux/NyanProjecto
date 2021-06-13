@@ -282,7 +282,7 @@ public class Boss : MonoBehaviour
     {
         if (!Invulnerable)
         {
-            mainSource.PlayOneShot(hurt.clip, hurt.volume);
+            hurt.Play(mainSource);
             bossAnim.SetTrigger("hit");
             currentHealth = currentHealth - dmg;
             if (currentHealth / maxHealth <= 0.00f)

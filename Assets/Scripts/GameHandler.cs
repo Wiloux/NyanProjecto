@@ -50,6 +50,7 @@ public class GameHandler : MonoBehaviour
 
     public void Play(AudioSource audioSource, bool looping = false, bool stopping = false, bool debug = false)
     {
+        if (clipsVolumes.Length == 0) return;
         PickRandomClipVolume().Play(audioSource, looping, stopping, debug);
     }
 }

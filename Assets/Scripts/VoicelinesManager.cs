@@ -56,7 +56,7 @@ public class VoicelinesManager : MonoBehaviour
 {
     public ClipsVolumes clipsVolumes;
     public float cooldownDuration;
-    public float cooldown;
+    private float cooldown;
 
     #region Cooldown gestion
     public bool HasCoolDown => cooldown <= 0;
