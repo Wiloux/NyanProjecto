@@ -290,6 +290,7 @@ public class Boss : MonoBehaviour
                 musicSource.Stop();
                 currentState = bossStates.Dead;
                 bossAnim.SetBool("dead", true);
+                FindObjectOfType<Spear>().DisableSpear();
                 Trophee.SetActive(true);
             }
             else if (currentHealth / maxHealth <= 0.33f && currentState != bossStates.Stage3)
