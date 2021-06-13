@@ -8,6 +8,10 @@ public class HackPanel : MonoBehaviour
     public List<Vector3> pos = new List<Vector3>();
     public float spd;
 
+    public AudioSource _AudioSource;
+
+    public List<ClipVolume> UIClips = new List<ClipVolume>();
+
     void Start()
     {
         //int children = transform.childCount;
@@ -18,7 +22,7 @@ public class HackPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnEnable()
@@ -33,9 +37,14 @@ public class HackPanel : MonoBehaviour
 
     public IEnumerator StartLoop()
     {
-            int children = transform.childCount;
+        int children = transform.childCount;
         while (true)
         {
+            int uiId = Random.Range(0, UIClips.Count);
+
+            _AudioSource.PlayOneShot(UIClips[uiId].clip, UIClips[uiId].volume);
+
+
             for (int i = 0; i < children; ++i)
             {
                 int rdm = Random.Range(0, 2);
@@ -48,7 +57,9 @@ public class HackPanel : MonoBehaviour
                     transform.GetChild(i).gameObject.SetActive(true);
                 }
             }
-                yield return new WaitForSeconds(spd);
+            yield return new WaitForSeconds(UIClips[uiId].clip.length);
+
+            yield return new WaitForSeconds(spd);
         }
     }
 }
