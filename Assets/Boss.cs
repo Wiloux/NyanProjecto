@@ -28,13 +28,11 @@ public class Boss : MonoBehaviour
     public float acidTimer;
 
     [Header("LaserAttack")]
-    public float laserTimerMax;
-    public GameObject laserGameObject;
-    public LineRenderer lr;
-    public float chargeWidth;
-    public float DmgWidth;
-    public float laserSpd;
-    public LayerMask _layermask;
+    public float NextBulletTime;
+    public float bulletAmount;
+    public BossBullet bulletPrefabGameObject;
+    public float bulletDmg;
+    public float bulletSpd;
 
     [Header("PawsAttack")]
     public float PawsTimerMax;
@@ -56,7 +54,6 @@ public class Boss : MonoBehaviour
     {
         currentState = bossStates.Stage1;
         currentHealth = maxHealth;
-        laserGameObject.SetActive(false);
 
 
         waitForAttackTimerDur = Random.Range(waitForAttackTimerDurMin, waitForAttackTimerDurMax);
@@ -101,10 +98,6 @@ public class Boss : MonoBehaviour
             StartCoroutine(LaserAttack());
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            DealDmg(5);
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -112,7 +105,7 @@ public class Boss : MonoBehaviour
         if (collision.transform.CompareTag("Player") && currentState != bossStates.Dead)
         {
             Vector3 staggerDirection = -collision.GetContact(0).normal;
-            Debug.DrawRay(collision.GetContact(0).point, -collision.GetContact(0).normal, Color.red, 5f) ;
+            Debug.DrawRay(collision.GetContact(0).point, -collision.GetContact(0).normal, Color.red, 5f);
             staggerDirection.y = 0;
             collision.transform.GetComponent<Player>().DealDamage(damageOnCollision, staggerDirection);
         }
@@ -224,7 +217,7 @@ public class Boss : MonoBehaviour
         Paws.SetActive(true);
         while (pawsTimer <= PawsTimerMax)
         {
-            pawsTimer+= Time.deltaTime;
+            pawsTimer += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
         PawsAttackCoro = null;
@@ -232,40 +225,18 @@ public class Boss : MonoBehaviour
     }
     IEnumerator LaserAttack()
     {
-        float laserTimer = 0;
-        laserGameObject.SetActive(true);
-        lr.startWidth = chargeWidth;
-        lr.endWidth = chargeWidth;
-        while (laserTimer <= laserTimerMax)
+        int bulletsSpawned = 0;
+        while (bulletsSpawned <= bulletAmount)
         {
-            if (laserGameObject.activeInHierarchy)
-            {
-                RaycastHit hit;
-                // Does the ray intersect any objects excluding the player layer
-                if (Physics.Raycast(transform.position, player.transform.position - lr.transform.position, out hit, Mathf.Infinity, _layermask))
-                {
-                    Vector3 hitPos = hit.point;
-                }
+            bulletsSpawned++;
+            BossBullet bullet = Instantiate(bulletPrefabGameObject, heads[1].transform.position, Quaternion.identity);
+            bullet._damage = bulletDmg;
+            bullet._movement = (player.transform.position - heads[1].transform.position).normalized * bulletSpd;
 
-
-                laserTimer += Time.deltaTime;
-                if (laserTimer / laserTimerMax >= 0.9f)
-                {
-                    lr.startWidth = DmgWidth;
-                    lr.endWidth = DmgWidth;
-                    //DealDmg;
-                }
-                else
-                {
-                    Vector3 smoothedPosition = Vector3.Lerp(lr.GetPosition(1), hit.point - lr.transform.position, laserSpd);
-                    lr.SetPosition(1, smoothedPosition);
-                }
-            }
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(NextBulletTime);
         }
-        LaserAttackCoro = null;
-        laserGameObject.SetActive(false);
 
+        LaserAttackCoro = null;
     }
     Vector3 RandompPointOnUnityCircle(float radius)
     {
@@ -293,6 +264,8 @@ public class Boss : MonoBehaviour
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
 
+    public GameObject Trophee;
+
     public void DealDmg(float dmg)
     {
         bossAnim.SetTrigger("hit");
@@ -301,11 +274,7 @@ public class Boss : MonoBehaviour
         {
             currentState = bossStates.Dead;
             bossAnim.SetBool("dead", true);
-
-            if (laserGameObject.activeInHierarchy)
-            {
-                laserGameObject.SetActive(false);
-            }
+            Trophee.SetActive(true);
         }
         else if (currentHealth / maxHealth <= 0.33f)
         {

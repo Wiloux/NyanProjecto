@@ -73,6 +73,8 @@ public class Player : MonoBehaviour
     [Header("Movement sounds")]
     [SerializeField] private ClipVolume stepAudio;
 
+
+    public Victory vic;
     // Start is called before the first frame update
     void Start()
     {
@@ -83,6 +85,9 @@ public class Player : MonoBehaviour
 
         collider = GetComponent<Collider>();
         Physics.IgnoreCollision(collider, spear.collider);
+
+        vic = FindObjectOfType<Victory>();
+        vic.gameObject.SetActive(false);
 
         spearRigidbody = spear.GetComponent<Rigidbody>();
 
@@ -107,20 +112,23 @@ public class Player : MonoBehaviour
             {
                 bool spearLinkedToTheBoss = spear.gameObject.activeSelf && spear.linkedToBoss;
 
-                if (KeyInput.GetDashKeyDown() && spear.gameObject.activeSelf)
+                if (KeyInput.GetDashKeyDown() && spear.gameObject.activeSelf && !vic.hasEnded)
                 {
                     // Dash to spear
-                    DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
+                        DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
                 }
 
                 #region Zoom
                 else if (KeyInput.GetZoomKeyDown() && ((!spear.gameObject.activeSelf && HasSpearCooldown) || spearLinkedToTheBoss))
                 {
-                    // Start Zoom
-                    ZoomCam();
+                    if (!vic.hasEnded)
+                    {
+                        // Start Zoom
+                        ZoomCam();
 
-                    // Set zooming
-                    animator.SetBool("Aim", true);
+                        // Set zooming
+                        animator.SetBool("Aim", true);
+                    }
                 }
                 else if (KeyInput.GetZoomKey() && aiming)
                 {

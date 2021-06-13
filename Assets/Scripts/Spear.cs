@@ -37,7 +37,7 @@ public class Spear : MonoBehaviour
 
     private void Update()
     {
-        if(rb.velocity != Vector3.zero)
+        if (rb.velocity != Vector3.zero)
         {
             transform.LookAt(transform.position + rb.velocity);
         }
@@ -47,7 +47,7 @@ public class Spear : MonoBehaviour
             UpdateLink();
         }
 
-       
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -59,6 +59,11 @@ public class Spear : MonoBehaviour
             if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
+                touchingBossAudio.Play(audioSource);
+            }
+            else if (collision.transform.GetComponent<Victory>())
+            {
+                collision.transform.GetComponent<Victory>().StartEnding();
                 touchingBossAudio.Play(audioSource);
             }
             else plantingAudio.Play(audioSource);
