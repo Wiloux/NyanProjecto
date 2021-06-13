@@ -281,6 +281,7 @@ public class Boss : MonoBehaviour
             currentHealth = currentHealth - dmg;
             if (currentHealth / maxHealth <= 0.00f)
             {
+                musicSource.Stop();
                 currentState = bossStates.Dead;
                 bossAnim.SetBool("dead", true);
                 Trophee.SetActive(true);
