@@ -514,7 +514,7 @@ MonoBehaviour:
   lookSpd: 50
   player: {fileID: 0}
   currentHealth: 12
-  maxHealth: 60
+  maxHealth: 600
   isDamageable: 0
   damageOnCollision: 20
   currentState: 0
