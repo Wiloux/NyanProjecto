@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/OutFoxed.unity
-    guid: 4e5c5ded226e63247bcef22668d2e4cd
+    path: Assets/Scenes/Menu.unity
+    guid: 50c1302a1ea56724b8f9dcddd27d3214
+  - enabled: 1
+    path: Assets/Scenes/Wiloux.unity
+    guid: 8ac5dd40c62818d4a9671c93398a9b68
   m_configObjects: {}
