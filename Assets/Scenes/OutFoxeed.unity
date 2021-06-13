@@ -435,6 +435,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3023236853049219874, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685767886973498570, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: m_Volume
+      value: 0.063
+      objectReference: {fileID: 0}
     - target: {fileID: 7601150230084327123, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_IsActive
       value: 1
