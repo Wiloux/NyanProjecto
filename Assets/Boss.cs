@@ -282,13 +282,8 @@ public class Boss : MonoBehaviour
             {
 
                 StartCoroutine(growHead(2));
-                //foreach (AcidPond acid in acidPonds)
-                //{
-                //    Destroy(acid.gameObject);
-                //}
-                //acidPonds.Clear();
             }
-            else if (currentHealth / maxHealth <= 0.66f && currentState != bossStates.Stage2)
+            else if (currentHealth / maxHealth <= 0.66f && currentState != bossStates.Stage2 && currentState != bossStates.Stage3)
             {
                 StartCoroutine(growHead(1));
             }
@@ -318,7 +313,7 @@ public class Boss : MonoBehaviour
         {
             currentState = bossStates.Stage3;
         }
-        else
+        else if (number == 1)
         {
             currentState = bossStates.Stage2;
         }
