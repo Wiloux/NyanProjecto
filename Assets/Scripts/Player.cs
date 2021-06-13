@@ -63,18 +63,18 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource movementAudioSource;
     [Space(5)]
     [Header("Sounds")]
-    [SerializeField] private ClipVolume spearThrowAudio;
-    [SerializeField] private ClipVolume shootingAudio;
-    [SerializeField] private ClipVolume stopShootingAudio;
-    [SerializeField] private ClipVolume dashToSpearAudio;
-    [SerializeField] private ClipVolume deathAudio;
-    [SerializeField] private ClipVolume gettingHitAudio;
-    [SerializeField] public ClipVolume startLink;
-    [SerializeField] private ClipVolume breakLink;
-    [SerializeField] private ClipVolume teleport;
+    [SerializeField] private ClipsVolumes spearThrowAudio;
+    [SerializeField] private ClipsVolumes shootingAudio;
+    [SerializeField] private ClipsVolumes stopShootingAudio;
+    [SerializeField] private ClipsVolumes dashToSpearAudio;
+    [SerializeField] private ClipsVolumes deathAudio;
+    [SerializeField] private ClipsVolumes gettingHitAudio;
+    [SerializeField] public ClipsVolumes startLink;
+    [SerializeField] private ClipsVolumes breakLink;
+    [SerializeField] private ClipsVolumes teleport;
     [Space(5)]
     [Header("Movement sounds")]
-    [SerializeField] private ClipVolume stepAudio;
+    [SerializeField] private ClipsVolumes stepAudio;
 
     public GameObject pausePanel;
 
@@ -134,6 +134,7 @@ public class Player : MonoBehaviour
             // Animator
             animator.SetBool("Spear", !spear.linkedToBoss);
             spear.hackPanel.SetActive(spear.linkedToBoss);
+            bowTie.SetActive(!spear.gameObject.activeSelf);
 
             if (GameHandler.enableControls && !Staggered)
             {
@@ -142,8 +143,10 @@ public class Player : MonoBehaviour
                 if (KeyInput.GetDashKeyDown() && spear.gameObject.activeSelf && !vic.hasEnded)
                 {
                     // Dash to spear
-                    mainAudioSource.PlayOneShot(teleport.clip, teleport.volume);
-                    mainAudioSource.PlayOneShot(breakLink.clip, teleport.volume);
+                    ClipVolume teleportClipVolume = teleport.PickRandomClipVolume();
+                    ClipVolume breakLinkClipVolume = breakLink.PickRandomClipVolume();
+                    mainAudioSource.PlayOneShot(teleportClipVolume.clip, teleportClipVolume.volume);
+                    mainAudioSource.PlayOneShot(breakLinkClipVolume.clip, breakLinkClipVolume.volume);
                     DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
                 }
 
@@ -282,7 +285,6 @@ public class Player : MonoBehaviour
     {
         animator.SetBool("Aim", false);
         spearCooldown = spearCooldownDuration;
-        bowTie.SetActive(false);
         spear.transform.position = transform.position;
         spear.gameObject.SetActive(true);
         spear.ResetForLaunch();
@@ -293,8 +295,6 @@ public class Player : MonoBehaviour
 
     private void DashToSpear(System.Action onDashFinished)
     {
-        bowTie.SetActive(true);
-
         GetInvulnerability(dashToSpearDuration);
         StartCoroutine(controller.LerpToPosition(spearRigidbody.position, dashToSpearDuration, () => { spear.DisableSpear(); onDashFinished?.Invoke(); }));
 

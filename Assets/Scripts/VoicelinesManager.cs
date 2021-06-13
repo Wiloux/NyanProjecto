@@ -48,20 +48,15 @@ public class VoicelinesManager : MonoBehaviour
     {
         if (voicelines.HasCoolDown && HasGeneralCooldown)
         {
-            voicelines.PickRandomClip().Play(generalAudioSource);
+            voicelines.clipsVolumes.Play(generalAudioSource);
         }
     }
 }
 [Serializable] public class Voicelines
 {
-    public ClipVolume[] clipVolumes;
+    public ClipsVolumes clipsVolumes;
     public float cooldownDuration;
     public float cooldown;
-
-    public ClipVolume PickRandomClip()
-    {
-        return clipVolumes[UnityEngine.Random.Range(0,clipVolumes.Length)];
-    }
 
     #region Cooldown gestion
     public bool HasCoolDown => cooldown <= 0;

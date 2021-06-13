@@ -17,7 +17,7 @@ public class Saliva : MonoBehaviour
     [Header("Sounds")]
     [Space(20)]
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private ClipVolume hittingGroundAudio;
+    [SerializeField] private ClipsVolumes hittingGroundAudio;
 
     void Start()
     {

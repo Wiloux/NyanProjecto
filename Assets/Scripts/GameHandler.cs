@@ -39,6 +39,20 @@ public class GameHandler : MonoBehaviour
         onInput?.Invoke();
     }
 }
+[Serializable] public class ClipsVolumes
+{
+    public ClipVolume[] clipsVolumes;
+
+    public ClipVolume PickRandomClipVolume()
+    {
+        return clipsVolumes[UnityEngine.Random.Range(0, clipsVolumes.Length)];
+    }
+
+    public void Play(AudioSource audioSource, bool looping = false, bool stopping = false, bool debug = false)
+    {
+        PickRandomClipVolume().Play(audioSource, looping, stopping, debug);
+    }
+}
 [System.Serializable] public class ClipVolume
 {
     public AudioClip clip;

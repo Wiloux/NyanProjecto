@@ -25,9 +25,9 @@ public class Spear : MonoBehaviour
 
     [Header("Sounds")]
     [Space(20)]
-    [SerializeField] private ClipVolume flyingAudio;
-    [SerializeField] private ClipVolume plantingAudio;
-    [SerializeField] private ClipVolume touchingBossAudio;
+    [SerializeField] private ClipsVolumes flyingAudio;
+    [SerializeField] private ClipsVolumes plantingAudio;
+    [SerializeField] private ClipsVolumes touchingBossAudio;
     private AudioSource audioSource;
 
     private void Awake()
@@ -61,9 +61,11 @@ public class Spear : MonoBehaviour
             if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
-                playerscript.mainAudioSource.PlayOneShot(playerscript.startLink.clip, playerscript.startLink.volume);
+                ClipVolume startLinkClipVolume = playerscript.startLink.PickRandomClipVolume();
+                playerscript.mainAudioSource.PlayOneShot(startLinkClipVolume.clip, startLinkClipVolume.volume);
                 SetLink();
                 touchingBossAudio.Play(audioSource);
+                VoicelinesManager.onBossLinked?.Invoke();
             }
             else if (collision.transform.GetComponent<Victory>())
             {
@@ -72,6 +74,8 @@ public class Spear : MonoBehaviour
                 linkedToTrophy = true;
                 SetLink();
                 touchingBossAudio.Play(audioSource);
+                VoicelinesManager.onVictory?.Invoke();
+
             }
             else plantingAudio.Play(audioSource);
 
