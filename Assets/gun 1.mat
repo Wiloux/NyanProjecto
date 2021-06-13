@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: gun
+  m_Name: gun 1
   m_Shader: {fileID: -6465566751694194690, guid: 5a1f41d9c1f34aa479c2085d032cf43f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -34,11 +34,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_23e3bb4b516d4fc1b5287b4f94e3e192:
-        m_Texture: {fileID: 2800000, guid: 19c908a1a6e279945bf32208fc706b3d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3acbc3dd5e8f1bc489ecb6a57d8c198f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_60e26b501cbb4ca2a85bb5afd7ff55ee:
-        m_Texture: {fileID: 2800000, guid: 2849ac15fa4d2504b81fda866ae28b6e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3acbc3dd5e8f1bc489ecb6a57d8c198f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_98823a16f358429db093ae14d1926a48:
@@ -133,7 +133,7 @@ Material:
     - _ZWrite: 0
     m_Colors:
     - Color_cb1d6045623f4ba5b4dae3a78de332ef: {r: 1, g: 1, b: 0.9198113, a: 0}
-    - Vector2_aa8a9fadb3834ec09360b7de2035bd69: {r: 0.1, g: 0, b: 0, a: 0}
+    - Vector2_aa8a9fadb3834ec09360b7de2035bd69: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 0.5254902, g: 1, b: 0.8807467, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
