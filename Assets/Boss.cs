@@ -343,6 +343,7 @@ public class Boss : MonoBehaviour
 
         if (number == 2)
         {
+            lookSpd *= 5f;
             currentState = bossStates.Stage3;
             musicSource.clip = musics[2].clip;
             musicSource.Play();

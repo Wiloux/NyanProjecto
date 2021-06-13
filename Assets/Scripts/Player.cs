@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Bullet bulletPrefab;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float gunFireRate;
+    public GameObject gunModel;
     private float nextTimeToFire;
     private bool gunShooting;
 
@@ -76,6 +77,7 @@ public class Player : MonoBehaviour
     [Header("Movement sounds")]
     [SerializeField] private ClipsVolumes stepAudio;
 
+
     public GameObject pausePanel;
 
     public void unPausePause(GameObject pausePanel)
@@ -118,6 +120,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(aiming && spear.linkedToBoss)
+        {
+            gunModel.SetActive(true);
+        }
+        else
+        {
+            gunModel.SetActive(false);
+        }
         healthImg.fillAmount = health / maxHealth;
 
         if (bowTie.gameObject.activeSelf)
@@ -180,7 +190,7 @@ public class Player : MonoBehaviour
                                 nextTimeToFire = Time.time + 1 / gunFireRate;
                                 // Shoot
                                 animator.SetTrigger("Shoot");
-                                Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                                Bullet bullet = Instantiate(bulletPrefab, firePos.transform.position, Quaternion.identity);
                                 bullet.movement = cam.transform.forward * bulletSpeed;
                             }
                         }
