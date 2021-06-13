@@ -1258,6 +1258,7 @@ MonoBehaviour:
   tpInvulnerabilityDuration: 0.5
   healthImg: {fileID: 0}
   bowTie: {fileID: 0}
+  bowTieCD: {fileID: 0}
   mainAudioSource: {fileID: 922033732}
   movementAudioSource: {fileID: 9204537711985832469}
   spearThrowAudio:
@@ -1278,9 +1279,19 @@ MonoBehaviour:
   gettingHitAudio:
     clip: {fileID: 0}
     volume: 1
+  startLink:
+    clip: {fileID: 8300000, guid: a1543074618c4d24caf2266985c3a069, type: 3}
+    volume: 0.281
+  breakLink:
+    clip: {fileID: 8300000, guid: 5897c7d0dd82b704fbcf4c7de3940ccb, type: 3}
+    volume: 0.243
+  teleport:
+    clip: {fileID: 8300000, guid: 81c1c95b11dae234e8b945eae244fab1, type: 3}
+    volume: 0.34
   stepAudio:
     clip: {fileID: 0}
     volume: 1
+  vic: {fileID: 0}
 --- !u!114 &915882033761489366
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -426,11 +426,11 @@ MonoBehaviour:
   salivaDrop: {fileID: 9100142695649780192, guid: dd889a8c6f9252248a6cf6fcf3d727bd, type: 3}
   acidPonds: []
   acidTimer: 5
-  NextBulletTime: 1.5
+  NextBulletTime: 1
   bulletAmount: 2
   bulletPrefabGameObject: {fileID: -1534087935776479420, guid: e3522e1f083f9d2439fca38594a5eeb3, type: 3}
   bulletDmg: 30
-  bulletSpd: 10
+  bulletSpd: 20
   PawsTimerMax: 20
   Paws: {fileID: 8412655648009947580}
   waitForAttackTimerDurMin: 0
@@ -438,6 +438,7 @@ MonoBehaviour:
   waitForAttackTimerDur: 0
   waitForAttackTimer: 0
   bossAnim: {fileID: 1708999574527958223}
+  Trophee: {fileID: 0}
 --- !u!1 &7985752957545460833
 GameObject:
   m_ObjectHideFlags: 0

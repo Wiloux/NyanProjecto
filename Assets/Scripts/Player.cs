@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 
     [Header("Audio")]
     [Space(20)]
-    [SerializeField] private AudioSource mainAudioSource;
+    [SerializeField] public AudioSource mainAudioSource;
     [SerializeField] private AudioSource movementAudioSource;
     [Space(5)]
     [Header("Sounds")]
@@ -69,6 +69,9 @@ public class Player : MonoBehaviour
     [SerializeField] private ClipVolume dashToSpearAudio;
     [SerializeField] private ClipVolume deathAudio;
     [SerializeField] private ClipVolume gettingHitAudio;
+    [SerializeField] public ClipVolume startLink;
+    [SerializeField] private ClipVolume breakLink;
+    [SerializeField] private ClipVolume teleport;
     [Space(5)]
     [Header("Movement sounds")]
     [SerializeField] private ClipVolume stepAudio;
@@ -79,6 +82,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+
+        spear.playerscript = this;
 
         controller = GetComponent<PlayerController>();
         spear.gameObject.SetActive(false);
@@ -115,7 +120,9 @@ public class Player : MonoBehaviour
                 if (KeyInput.GetDashKeyDown() && spear.gameObject.activeSelf && !vic.hasEnded)
                 {
                     // Dash to spear
-                        DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
+                    mainAudioSource.PlayOneShot(teleport.clip, teleport.volume);
+                    mainAudioSource.PlayOneShot(breakLink.clip, teleport.volume);
+                    DashToSpear(() => GetInvulnerability(tpInvulnerabilityDuration));
                 }
 
                 #region Zoom
@@ -161,7 +168,7 @@ public class Player : MonoBehaviour
                         if (KeyInput.GetFireKeyDown() && !spear.gameObject.activeSelf)
                         {
                             // Launch Spear
-                            if(HasSpearCooldown)
+                            if (HasSpearCooldown)
                             {
                                 LaunchSpear(cam.transform.forward);
                             }

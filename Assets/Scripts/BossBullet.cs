@@ -32,7 +32,7 @@ public class BossBullet : MonoBehaviour
                 Player player = other.GetComponent<Player>();
                 if (player == null) player = other.GetComponentInParent<Player>();
 
-                if (player != null) player.DealDamage(_damage);
+                if (player != null) player.DealDamage(_damage, -(transform.position - player.transform.position));
                 //Debug.Log("damage");
             }
 

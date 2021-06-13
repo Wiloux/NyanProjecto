@@ -14,6 +14,8 @@ public class Spear : MonoBehaviour
 
     [HideInInspector] public bool linkedToBoss = false;
 
+    public Player playerscript;
+
     [SerializeField] private LineRenderer link;
 
     private Transform playerHeart;
@@ -59,6 +61,7 @@ public class Spear : MonoBehaviour
             if (collision.transform.CompareTag("Boss"))
             {
                 linkedToBoss = true;
+                playerscript.mainAudioSource.PlayOneShot(playerscript.startLink.clip, playerscript.startLink.volume);
                 SetLink();
                 touchingBossAudio.Play(audioSource);
             }
