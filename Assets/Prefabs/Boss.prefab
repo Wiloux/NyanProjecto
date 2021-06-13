@@ -544,21 +544,21 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: 13d09bc9890f2e64c8a28d31315eb586, type: 3}
     volume: 0.07
   hurt:
-    clip: {fileID: 0}
-    volume: 1
+    clip: {fileID: 8300000, guid: 0768d292cfd7da04baf410bb9808a1e1, type: 3}
+    volume: 0.5
   startPhase:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 08505319abd1c3e4db05fc8cf68bd340, type: 3}
     volume: 1
   headGrowing:
     clip: {fileID: 0}
     volume: 1
   endPhase:
-  - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
+  - clip: {fileID: 8300000, guid: 6cfce2484998a5847934daca145e8a41, type: 3}
     volume: 0.184
-  - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
-    volume: 0.207
-  - clip: {fileID: 8300000, guid: b61027ee6ac7bd94ea861ead0080a3a6, type: 3}
-    volume: 0.238
+  - clip: {fileID: 8300000, guid: 499e0311815df3f49a916785be515f5a, type: 3}
+    volume: 0.184
+  - clip: {fileID: 8300000, guid: 58157ebf852ac8f49afb9fc0a854a2ba, type: 3}
+    volume: 0.184
   mainSource: {fileID: 5685767886973498570}
   musicSource: {fileID: 3023236853049219874}
   Trophee: {fileID: 0}

@@ -489,15 +489,43 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: hurt.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0768d292cfd7da04baf410bb9808a1e1, type: 3}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: hurt.volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: Invulnerable
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: startPhase.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 08505319abd1c3e4db05fc8cf68bd340, type: 3}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: endPhase.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: endPhase.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6cfce2484998a5847934daca145e8a41, type: 3}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: endPhase.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 499e0311815df3f49a916785be515f5a, type: 3}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: endPhase.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 58157ebf852ac8f49afb9fc0a854a2ba, type: 3}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: endPhase.Array.data[1].volume
+      value: 0.184
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: endPhase.Array.data[2].volume
       value: 0.184
       objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302781, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
@@ -2629,7 +2657,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6282613872855370926, guid: c645ab162581fdb43abdbecdaf3799ef, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6656519775631316578, guid: c645ab162581fdb43abdbecdaf3799ef, type: 3}
       propertyPath: m_SpriteState.m_PressedSprite
