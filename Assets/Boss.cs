@@ -50,8 +50,15 @@ public class Boss : MonoBehaviour
     public Coroutine LaserAttackCoro;
 
     public Animator bossAnim;
+
+    public List<ClipVolume> musics = new List<ClipVolume>();
+
+    public AudioSource mainSource;
+    public AudioSource musicSource;
     void Start()
     {
+        musicSource.clip = musics[0].clip;
+        musicSource.Play();
         currentState = bossStates.Stage1;
         currentHealth = maxHealth;
 
@@ -300,6 +307,10 @@ public class Boss : MonoBehaviour
 
         currentState = bossStates.Growing;
         protectionDome.SetActive(true);
+        
+        musicSource.Stop();
+
+
         float t = 0;
         while (t <= 1)
         {
@@ -312,9 +323,13 @@ public class Boss : MonoBehaviour
         if (number == 2)
         {
             currentState = bossStates.Stage3;
+            musicSource.clip = musics[2].clip;
+            musicSource.Play();
         }
         else if (number == 1)
         {
+            musicSource.clip = musics[1].clip;
+            musicSource.Play();
             currentState = bossStates.Stage2;
         }
         protectionDome.SetActive(false);
