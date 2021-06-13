@@ -58,22 +58,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generalAudioSource: {fileID: 2087189562546668216}
-  generalCooldownDuration: 15
+  generalCooldownDuration: 3
   onBossLinkedVoicelines:
     clipsVolumes:
-      clipsVolumes: []
-    cooldownDuration: 10
+      clipsVolumes:
+      - clip: {fileID: 8300000, guid: 4a7f4342518360f46b84fbb1b8bcfff0, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: cdd08d8948dc9054490afff1258e2ff1, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: 9f9c78a7997166149b5ede2cd849afd1, type: 3}
+        volume: 0.5
+    cooldownDuration: 20
   onHittingBossVoicelines:
     clipsVolumes:
-      clipsVolumes: []
-    cooldownDuration: 20
+      clipsVolumes:
+      - clip: {fileID: 8300000, guid: 0a489ae9ce6264a4e8770fd24db513d3, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: 2e35501cbc382c84a972c4b462649860, type: 3}
+        volume: 0.5
+    cooldownDuration: 7
+  onBossNewPhaseVoicelines:
+    clipsVolumes:
+      clipsVolumes:
+      - clip: {fileID: 8300000, guid: cd6a510739482d6488456add9e35fd1d, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: cf734d77123ad254692f8b73f71c7df3, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: 0f8e41415efd5654aacaff121526fd12, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: fa7032f682bfcf3429dba17decea2ac1, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: 7e631726a6ac5a14b900209057d60046, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: a5d7ff6e867355246969a93e283832ab, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: f0fc80beaef7eaa41aa6113f2b1531e2, type: 3}
+        volume: 0.5
+    cooldownDuration: 10
   onBossKilledVoicelines:
     clipsVolumes:
-      clipsVolumes: []
+      clipsVolumes:
+      - clip: {fileID: 8300000, guid: 845f2c4a76c812f49a352b15bb281f62, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: 6d0cdc5a939528245a9c1030b1d98f14, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: 63772f1ac98689a458ea15781d7044cb, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: 7d534225627c6184b94a9ce07d6b0cf2, type: 3}
+        volume: 0.5
     cooldownDuration: 0
   onVictoryVoicelines:
     clipsVolumes:
-      clipsVolumes: []
+      clipsVolumes:
+      - clip: {fileID: 8300000, guid: 1a4c60b15ac9b0d4688d832062e5beb2, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: 7dbf9fb104e9d2e4a8a76672cf0fe115, type: 3}
+        volume: 0.5
+      - clip: {fileID: 8300000, guid: b39001cd310e92c49adbf301794ec132, type: 3}
+        volume: 0.5
     cooldownDuration: 0
 --- !u!82 &2087189562546668216
 AudioSource:

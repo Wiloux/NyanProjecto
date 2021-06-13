@@ -291,6 +291,7 @@ public class Boss : MonoBehaviour
                 currentState = bossStates.Dead;
                 bossAnim.SetBool("dead", true);
                 FindObjectOfType<Spear>().DisableSpear();
+                VoicelinesManager.onBossKilled?.Invoke();
                 Trophee.SetActive(true);
             }
             else if (currentHealth / maxHealth <= 0.33f && currentState != bossStates.Stage3)
@@ -330,6 +331,9 @@ public class Boss : MonoBehaviour
         {
             heads[number].transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, t);
             Debug.Log(heads[number].transform.localScale);
+
+            if(t > 0.5f)VoicelinesManager.onBossNewPhase?.Invoke();
+
             t += Time.deltaTime * growthSpd;
             yield return new WaitForEndOfFrame();
         }
