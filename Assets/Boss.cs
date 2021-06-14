@@ -285,21 +285,26 @@ public class Boss : MonoBehaviour
             hurt.Play(mainSource);
             bossAnim.SetTrigger("hit");
             currentHealth = currentHealth - dmg;
-            if (currentHealth / maxHealth <= 0.00f)
+            if (currentHealth / maxHealth <= 0.00f && currentState != bossStates.Dead)
             {
                 musicSource.Stop();
                 currentState = bossStates.Dead;
+                endPhase[2].Play(mainSource);
+
                 bossAnim.SetBool("dead", true);
-                FindObjectOfType<Spear>().DisableSpear();
+
+                if (FindObjectOfType<Spear>() != null)
+                    FindObjectOfType<Spear>().DisableSpear();
+
                 VoicelinesManager.onBossKilled?.Invoke();
                 Trophee.SetActive(true);
             }
-            else if (currentHealth / maxHealth <= 0.33f && currentState != bossStates.Stage3)
+            else if (currentHealth / maxHealth <= 0.33f && currentState != bossStates.Stage3 && currentState != bossStates.Dead)
             {
 
                 StartCoroutine(growHead(2));
             }
-            else if (currentHealth / maxHealth <= 0.66f && currentState != bossStates.Stage2 && currentState != bossStates.Stage3)
+            else if (currentHealth / maxHealth <= 0.66f && currentState != bossStates.Stage2 && currentState != bossStates.Stage3 && currentState != bossStates.Dead)
             {
                 StartCoroutine(growHead(1));
             }
@@ -317,13 +322,15 @@ public class Boss : MonoBehaviour
 
         currentState = bossStates.Growing;
         protectionDome.SetActive(true);
-        headGrowing.Play(mainSource);
+        musicSource.Stop();
         endPhase[number - 1].Play(mainSource);
 
-        FindObjectOfType<Spear>().DisableSpear();
+        if (FindObjectOfType<Spear>() != null)
+            FindObjectOfType<Spear>().DisableSpear();
 
+        yield return new WaitForSeconds(0.5f);
+        headGrowing.Play(mainSource);
 
-        musicSource.Stop();
 
 
         float t = 0;

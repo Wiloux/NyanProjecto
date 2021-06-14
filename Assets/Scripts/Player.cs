@@ -99,8 +99,9 @@ public class Player : MonoBehaviour
         health = maxHealth;
 
         Cursor.visible = false;
-        spear.playerscript = this;
+        Cursor.lockState = CursorLockMode.Locked;
 
+        spear.playerscript = this;
         controller = GetComponent<PlayerController>();
         spear.gameObject.SetActive(false);
 
@@ -110,7 +111,6 @@ public class Player : MonoBehaviour
         vic = FindObjectOfType<Victory>();
         vic.gameObject.SetActive(false);
 
-        Cursor.lockState = CursorLockMode.Locked;
 
         spearRigidbody = spear.GetComponent<Rigidbody>();
 

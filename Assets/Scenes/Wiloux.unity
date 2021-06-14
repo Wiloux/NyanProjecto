@@ -484,6 +484,30 @@ PrefabInstance:
       propertyPath: Trophee
       value: 
       objectReference: {fileID: 1661128073}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: startPhase.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 499e0311815df3f49a916785be515f5a, type: 3}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: headGrowing.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 08505319abd1c3e4db05fc8cf68bd340, type: 3}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: headGrowing.volume
+      value: 0.267
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: musics.Array.data[0].volume
+      value: 0.462
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: musics.Array.data[1].volume
+      value: 0.466
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
+      propertyPath: musics.Array.data[2].volume
+      value: 0.422
+      objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302781, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -3347,7 +3371,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.51, y: 1, z: 0.41}
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1661128075
 MonoBehaviour:

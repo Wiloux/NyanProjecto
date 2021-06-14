@@ -514,7 +514,7 @@ MonoBehaviour:
   lookSpd: 50
   player: {fileID: 0}
   currentHealth: 12
-  maxHealth: 600
+  maxHealth: 500
   isDamageable: 0
   damageOnCollision: 20
   currentState: 0
@@ -538,27 +538,27 @@ MonoBehaviour:
   bossAnim: {fileID: 1708999574527958223}
   musics:
   - clip: {fileID: 8300000, guid: eaeaeb89893445344bc7d97b5752ef27, type: 3}
-    volume: 1
+    volume: 0.462
   - clip: {fileID: 8300000, guid: 7be7cd8a90053b642935d5ae9937beed, type: 3}
-    volume: 1
+    volume: 0.466
   - clip: {fileID: 8300000, guid: 5a1934d590bb645448121ef078411219, type: 3}
-    volume: 1
+    volume: 0.422
   hurt:
     clip: {fileID: 8300000, guid: 0768d292cfd7da04baf410bb9808a1e1, type: 3}
     volume: 0.05
   startPhase:
-    clip: {fileID: 8300000, guid: 08505319abd1c3e4db05fc8cf68bd340, type: 3}
+    clip: {fileID: 8300000, guid: 499e0311815df3f49a916785be515f5a, type: 3}
     volume: 0.27
   headGrowing:
-    clip: {fileID: 0}
-    volume: 1
+    clip: {fileID: 8300000, guid: 08505319abd1c3e4db05fc8cf68bd340, type: 3}
+    volume: 0.267
   endPhase:
-  - clip: {fileID: 8300000, guid: 6cfce2484998a5847934daca145e8a41, type: 3}
-    volume: 0.184
-  - clip: {fileID: 8300000, guid: 499e0311815df3f49a916785be515f5a, type: 3}
-    volume: 0.184
-  - clip: {fileID: 8300000, guid: 58157ebf852ac8f49afb9fc0a854a2ba, type: 3}
-    volume: 0.184
+  - clip: {fileID: 8300000, guid: e5482438c206328479f6bd9356d16efc, type: 3}
+    volume: 0.546
+  - clip: {fileID: 8300000, guid: e5482438c206328479f6bd9356d16efc, type: 3}
+    volume: 0.51
+  - clip: {fileID: 8300000, guid: 367ae6c6d01065845ad76f236075e9ac, type: 3}
+    volume: 0.482
   mainSource: {fileID: 5685767886973498570}
   musicSource: {fileID: 3023236853049219874}
   Trophee: {fileID: 0}

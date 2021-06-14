@@ -7,13 +7,15 @@ public class Menu : MonoBehaviour
 {
     public int sceneID;
 
-    private void Update()
+    private void Start()
     {
-       // PlayTheGame();
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     public void PlayTheGame()
     {
-       SceneManager.LoadScene(sceneID);
+        SceneManager.LoadScene(sceneID);
     }
 
     public void OpenControlsPanel(GameObject optionPanel)
