@@ -464,14 +464,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 422369237786742699, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7601150230084327123, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302776, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_Name
       value: Boss (1)
@@ -485,28 +477,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1661128073}
     - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: startPhase.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 499e0311815df3f49a916785be515f5a, type: 3}
-    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: headGrowing.clip
-      value: 
-      objectReference: {fileID: 8300000, guid: 08505319abd1c3e4db05fc8cf68bd340, type: 3}
-    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: headGrowing.volume
-      value: 0.267
-      objectReference: {fileID: 0}
-    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: musics.Array.data[0].volume
-      value: 0.462
-      objectReference: {fileID: 0}
-    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: musics.Array.data[1].volume
-      value: 0.466
-      objectReference: {fileID: 0}
-    - target: {fileID: 7985752957453302777, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: musics.Array.data[2].volume
-      value: 0.422
+      propertyPath: maxHealth
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302781, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_RootOrder
@@ -550,10 +522,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7985752957453302781, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8412655648009947580, guid: 7991fae380b392947a2991fbbfe41d8b, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
